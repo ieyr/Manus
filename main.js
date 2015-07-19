@@ -8,13 +8,19 @@ var angle1 = Math.PI/2;
 var angle2 = Math.PI/2;
 var angle3 = Math.PI/2;
 var angle4 = Math.PI/2;
-
+var zeros = 100
 var count = 1;
 
 init();
 setInterval(render, 10);
 
+myo.on('*', function(event, data){
+  if(event == 'accelerometer'){
+    console.log(data.x + ',' )
+    moveHand(data.x*zeros,data.y*zeros,data.z*zeros)
 
+  }
+})
 
 
 function animate() {
@@ -26,10 +32,11 @@ function animate() {
 
   angle1 += 0.01;
 
-  //console.log(lastX9*500  + ',' + lastY9*500  + ',' + lastZ9*500 )
-  moveHand(lastX9*500 , lastY9*500 , lastZ9*500 );
-
   setAngle();
+  console.log(latestValues[0]/1000000000000000000000 , latestValues[1]/1000000000000000000000 , latestValues[2]/1000000000000000000000 )
+
+
+  
 
   //update camera orientation
   controls.update();

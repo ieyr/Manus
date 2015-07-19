@@ -1,95 +1,135 @@
+
+	
 /*
 *Double integrates over the acceleration
 *To find the change in position
 */
 
-/*
-*Double integrates over the acceleration
-*To find the change in position
-*/
+var lastX9 = 0;
+var lastY9 = 0;
+var lastZ9 = 0;
 
-//WHY U ASK. CUZ 7 ATE 9
+var xVelocity = 0;
+var yVelocity = 0;
+var zVelocity = 0;
 
+var lastXVelocity = 0;
+var lastYVelocity = 0;
+var lastZVelocity = 0;
 
-var lastX9 = 0
-var lastY9 = 0
-var lastZ9 = 0
-
-var xVelocity9 = 0
-var yVelocity9 = 0
-var zVelocity9 = 0
-
-var lastXVelocity9 = 0
-var lastYVelocity9 = 0
-var lastZVelocity9 = 0
-
-var lastTime9 = 0
-var currentTime9 = 0
-var twoTimesAgo9 = 0
+var lastTime = 0;
+var currentTime = 0;
+var twoTimesAgo = 0;
 
 //position variables
-var curX9  = 0;
-var curY9 = 0;
-var curZ9 = 0;
+var curX  = 0;
+var curY = 0;
+var curZ = 0;
 
-var timesRun9 = 0;
-var first = true;
-myo.on('*', function(event, data9){
-	if(event=='accelerometer'){
-		insertNewData19(data9.x,data9.y,data9.z)
+var latestValues = [0,0,0]
+
+//initialize to smooth array
+var valuesToSmooth = 40;
+var smoothingValues = new Array(3);
+for(i = 0; i < 3; i ++){
+	smoothingValues[i] = new Array(40);
+	for(j = 0; j< smoothingValues[0].length; j++){
+		smoothingValues[i][j] = 0
 	}
-})
+}
 
-function insertNewData19( x9,  y9,  z9){
-    currentTime9 = new Date().getTime();
-    
-    var difBetweenlast9  =  currentTime9 - lastTime9;
-    var difTwo9 = (currentTime9 - twoTimesAgo9)/2;
-    if(first){
-    	xVelocity9 = 0 
-    	yVelocity9 = 0
-    	zVelocity9 = 0
-    	first = false
-    }
-	xVelocity9 += difBetweenlast9 * ( (x9  ));
-	yVelocity9 += difBetweenlast9 * ( (y9  ));
-	zVelocity9 += difBetweenlast9 * ( (z9  ));
+var smoothIndex = 0;
+var smoothIndexPlus = 0;
+var total = [0,0,0];
+
+var timesRun = 0;
+
+
+
+
+function insertNewData( x,  y,  z){
+	console.log([x,y,z])
+	 
+	currentTime = new Date().getTime();
+	
+	var difBetweenlast  =  currentTime - lastTime;
+	var difTwo = (currentTime - twoTimesAgo)/2;
+
+	xVelocity += difBetweenlast * ( (x  ));
+	yVelocity += difBetweenlast * ( (y  ));
+	zVelocity += difBetweenlast * ( (z  ));
+
+
+	curX += difTwo * ((xVelocity + lastXVelocity)/2);
+	curY += difTwo * ((yVelocity + lastYVelocity)/2);
+	curZ += difTwo * ((zVelocity + lastZVelocity)/2);
+
+
+
+
+
+		//update all of the variables
+	twoTimesAgo = lastTime;
+	lastTime = currentTime;
+
+	lastXVelocity = xVelocity;
+	lastYVelocity = yVelocity;
+	lastZVelocity = zVelocity;
+
+	lastX9 = x;
+	lastY9 = y;
+	lastZ9 = z;
+	timesRun ++;
+	
+	smoothIndexPlus ++;
+	smoothIndexPlus = smoothIndexPlus % valuesToSmooth;
+	
+	for( i = 0; i < 3; i ++){
+		if(i == 0){
+			smoothingValues[i][smoothIndex] = curX;
+		} 
+		if(i == 1) {
+			smoothingValues[i][smoothIndex] = curY;
+		}
+		if(i == 2) {
+			smoothingValues[i][smoothIndex] = curZ;
+		}
+		total[i] += smoothingValues[i][smoothIndex] - smoothingValues[i][smoothIndexPlus];
+	}
 	
 
-    curX9 += difTwo9 * ((xVelocity9 + lastXVelocity9)/2);
-    curY9 += difTwo9 * ((yVelocity9 + lastYVelocity9)/2);
-    curZ9 += difTwo9 * ((zVelocity9 + lastZVelocity9)/2);
 
+	smoothIndex = smoothIndexPlus;
+	
+	if(timesRun > 3){
+		var bigNumb = 100000000000000000000000;
+		var xr = restrain((total[0]/valuesToSmooth),bigNumb,-bigNumb);
+		var yr = restrain((total[1]/valuesToSmooth),bigNumb,-bigNumb);
+		var zr = restrain((total[2]/valuesToSmooth),bigNumb,-bigNumb);
+		
 
-
-
-
-    //update all of the variables
-    twoTimesAgo9 = lastTime9;
-    lastTime9 = currentTime9;
-
-    lastXVelocity9 = xVelocity9;
-    lastYVelocity9 = yVelocity9;
-    lastZVelocity9 = zVelocity9;
-
-    lastX9 = x9;
-    lastY9 = y9;
-    lastZ9 = z9;
-    timesRun9 ++;
-    //console.log("x: " + curX9 + " y: " + curY9 + " z: " + curZ9);
-    if(timesRun9 > 3){
-        return [curX9,curY9,curZ9];
-    }
-    else{
-        return [0,0,0]
-    }
+		// console.log(returnMe);
+		latestValues = [xr,yr,zr]
+		return returnMe;
+	}
+	else{
+		//var returnMe = [0,0,0];
+		//return returnMe;
+	}
 }
 
-function recenter(){
-    curX9 = 0;
-    curY9 = 0;
-    curZ9 = 0;
-    xVelocity9 = 0;
-    yVelocity9 = 0;
-    zVelocity9 = 0;
-}
+	function recenter(){
+		curX = 0;
+		curY = 0;
+		curZ = 0;
+		xVelocity = 0;
+		yVelocity = 0;
+		zVelocity = 0;
+	}
+
+	function restrain(val, top,bot){
+		if(val > top){ return top;}
+		if(val < bot){ return bot;}
+		return val;
+	}
+
