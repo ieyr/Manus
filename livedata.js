@@ -50,12 +50,11 @@ function addNewData(values){
     if(window.setup){
         console.log('added classy')
         classyCount++
-        if(classyCount%10==0)
         addClassifyer(sd, index)
     }
     return sd
-    // var returnval = performWave(values)
-    // return returnval
+    // var sd = performWave(values)
+    // return sd
 }
 
 function runningStandardDeviation(values){

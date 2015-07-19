@@ -101,7 +101,7 @@ function getObservation (observation){
 			totalProbability *= probability;
 		}
 		
-		console.log(ev + ': ' + totalProbability);
+		//console.log(ev + ': ' + totalProbability);
 
 		probs.push(totalProbability)
 
