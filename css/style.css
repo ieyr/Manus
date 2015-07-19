@@ -1,6 +1,17 @@
+body { padding-bottom: 70px; padding-top: 70px; }
+.navbar {
+    background: rgba(255,255,255,0.8);
+ }
+html{
+	max-width: 100%;
+}
 body{
 	font-family: 'Roboto', sans-serif;
+	background-image: url("../blurred.jpg");
+	background-size: cover;
+	color:white;
 }
+
 #totalProg{
 	margin-top: 10px;
 }
@@ -24,12 +35,12 @@ body{
 }
 #info-section{
 	font-family: 'Roboto', sans-serif;
-	margin-top: 150px;
+	margin-top: 90px;
 }
 #divider{
-	width: 5px;
-	background-color: #336699;
-	height: 175px;
+	width: 3px;
+	background-color: black;
+	height: 250px;
 }
 #content{
 	text-align: left;
@@ -43,4 +54,20 @@ h5{
 }
 #calibText{
 	font-size: 20px;
+}
+.homeinfo{
+	margin-right: auto;
+	margin-left: auto;
+}
+.sec1{
+	border-right: 1px solid white;
+}
+.secright, .secleft{
+	width: 10vmin;
+}
+.rightsec p, .leftsec p{
+	font-size: 3.7vmin;
+}
+.row{
+	overflow: hidden;
 }

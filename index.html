@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Manus</title>
+	<title>Dexto</title>
 	 <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
@@ -14,46 +14,49 @@
       <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500' rel='stylesheet' type='text/css'>
 
     <!-- Plugin CSS -->
-    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
-
+    
     <!-- Custom CSS -->
 </head>
-<body style="">
+<body id="homePage">
 
-<nav class="navbar navbar-default">
+
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <a id ="title"class="navbar-brand" href="#">Manus</a>
+      <a id ="title"class="navbar-brand" href="#">Dexto</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li><a id="title"href="Index.html">Home</a></li>
-        <li><a id="title"href="Model.html">3D View</a></li>
-        <li><a id="title"href="Room.html">Room</a></li>
-        <li><a id="title"href="Docs.html">Documentation</a></li>
+        <li><a id="title"href="index.html">Home</a></li>
+        <li><a id="title"href="html/Model.html">3D View</a></li>
+        <li><a id="title"href="html/Room.html">Room</a></li>
+        <li><a id="title"href="html/Docs.html">Documentation</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div class="container">
+
+<div class="container description">
 	<div class="row">
-		<h1 id ="title-text">Generate a 3D model of your arm</h1>
+		<h1 id ="title-text">Dexto, the 3D API for Myo</h1>
 	</div>
-	<div class="row" id="info-section">
-		<div class="col-md-1"></div>
-		<div class="col-md-5">
-			<p id="content">Manus reads raw data from your Myo Armband and calculates a hand's finger position. You can get a demonstration from our 3D Viewer.</p>
+	<div class="homeinfo row" id="info-section">
+
+		<div class=" sec1 col-md-6">
+      <div class="leftsec">
+			 <p id="content">Dexto reads raw emg data from a Mio and calculates finger positions of a hand. You can get a demonstration from our 3D Viewer.</p>
+      </div>
 		</div>
-		<div class="col-md-1">
-			<div id="divider"></div>
+
+		<div class="col-md-6">
+      <div class="rightsec">
+			 <p id="content">Dexto alows you to push this data to Firebase using our api. You can view this data in our room or use it in your applications</p>
+      </div>
 		</div>
-		<div class="col-md-4">
-			<p id="content">Go to Room to send your Myo data to Firebase and access our API. <a href="Docs.html">Documentation Here.</a></p>
-		</div>
-		<div class="col-md-2"></div>
+
 	</div>
 </div>
 

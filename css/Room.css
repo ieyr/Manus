@@ -1,8 +1,4 @@
-#title{
-	background-color: #336699;
-	color:white;
-	margin-top: 0px;
-}
+
 h5{
 	color: white;
 }
@@ -11,6 +7,9 @@ h5{
 	display: block;
 	margin-right: auto;
 	margin-left: auto;
+}
+#title{
+	color: black;	
 }
 .v-line{
 	position:absolute;
