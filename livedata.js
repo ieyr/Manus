@@ -4,11 +4,11 @@
 /*
 * @params values the newest readings from myo
 */
-var numbOfEntries = 900;
+var numbOfEntries = 200;
 var entriesSoFar = 0;
 var canReceive = false
 
-var index = 0;
+var indexNormal = 0;
 var indexPlus = 1;
 
 
@@ -34,7 +34,11 @@ myo.on('connected', function(){
 });
 
 function addNewData(values){
-    return runningStandardDeviation(values)
+    var sd = runningStandardDeviation(values)
+    if(window.setup){
+        addNewClassifyer(sd, indexNormal)
+    }
+    return sd
     // var returnval = performWave(values)
     // return returnval
 }
@@ -42,13 +46,13 @@ function addNewData(values){
 function runningStandardDeviation(values){
     var standardDeviation = [0,0,0,0,0,0,0,0];
     for(i = 0; i < 8; i ++){
-        allVal[i][index] = values[i];
+        allVal[i][indexNormal] = values[i];
     }
 
     if(entriesSoFar  > numbOfEntries  ){
         for(i = 0; i < 8; i ++){
-            sqSum[i] += allVal[i][index]*allVal[i][index] - allVal[i][indexPlus]*allVal[i][indexPlus];
-            totalMean[i] += allVal[i][index]-allVal[i][indexPlus];
+            sqSum[i] += allVal[i][indexNormal]*allVal[i][indexNormal] - allVal[i][indexPlus]*allVal[i][indexPlus];
+            totalMean[i] += allVal[i][indexNormal]-allVal[i][indexPlus];
 
             standardDeviation[i] = Math.sqrt(sqSum[i]/numbOfEntries - (totalMean[i]/numbOfEntries)*(totalMean[i]/numbOfEntries));
         }
@@ -60,7 +64,7 @@ function runningStandardDeviation(values){
     }
     
     //index to store all of the values
-    index = indexPlus;
+    indexNormal = indexPlus;
     indexPlus ++;
     indexPlus = indexPlus % numbOfEntries;
 
@@ -81,13 +85,13 @@ function performWave(newdata){
     }
 
     for(i = 0; i < 8; i ++){
-        allVal[i][index] = rectifiedData[i];
+        allVal[i][indexNormal] = rectifiedData[i];
     }
 
     if(entriesSoFar  > numbOfEntries  ){
         for(i = 0; i < 8; i ++){
             
-            totalMean[i] += allVal[i][index]-allVal[i][indexPlus];
+            totalMean[i] += allVal[i][indexNormal]-allVal[i][indexPlus];
 
         }
     }else{
@@ -98,7 +102,7 @@ function performWave(newdata){
     }
     
     //index to store all of the values
-    index = indexPlus;
+    indexNormal = indexPlus;
     indexPlus ++;
     indexPlus = indexPlus % numbOfEntries;
 
