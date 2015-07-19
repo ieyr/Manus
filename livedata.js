@@ -31,6 +31,7 @@ myo.on('emg', function(data){
                 index99 = i
             }
         }
+        fingerData = index99
         console.log(index99)
         //console.log(addNewData(data))
 

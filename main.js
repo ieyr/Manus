@@ -5,22 +5,34 @@ var handDef = {};
 var material =  new THREE.MeshLambertMaterial( { color:0xffffff, shading: THREE.FlatShading } );
 var rotationInterval = 0.01;
 var angle1 = Math.PI/2;
-var angle2 = Math.PI/2;
-var angle3 = Math.PI/2;
-var angle4 = Math.PI/2;
-var zeros = 100
-var count = 1;
+var angle2 = Math.PI/2 + 0.2;
+var angle3 = Math.PI/2 + 0.6;
+var angle4 = Math.PI/2 + 1.0;
+
+var rotDirection = 1
+var rot2Direction = 1
+var rot3Direction = 1
+var rot4Direction = 1
+
+var goalAngle1 = Math.PI/4;
+var goalAngle2 = Math.PI/4;
+var goalAngle3 = Math.PI/4;
+var goalAngle4 = Math.PI/4;
+
+var fingerData = 0;
 
 init();
 setInterval(render, 10);
 
-myo.on('*', function(event, data){
-  if(event == 'accelerometer'){
-    console.log(data.x + ',' )
-    moveHand(data.x*zeros,data.y*zeros,data.z*zeros)
+// myo.on('*', function(event, data){
+//   if(event == 'accelerometer'){
+//     console.log(data.x + ',' )
+//     moveHand(data.x*zeros,data.y*zeros,data.z*zeros)
 
-  }
-})
+//   }
+// })
+
+
 
 
 function animate() {
@@ -30,30 +42,104 @@ function animate() {
   requestAnimationFrame(animate);
   //hand animation
 
-  angle1 += 0.01;
+  getGoalAngle();
+  rotateToAngle(goalAngle1, goalAngle2, goalAngle3, goalAngle4)
+
+
+
+
+
 
   setAngle();
-  console.log(latestValues[0]/1000000000000000000000 , latestValues[1]/1000000000000000000000 , latestValues[2]/1000000000000000000000 )
-
-
-  
-
-  //update camera orientation
   controls.update();
 }
+function getGoalAngle(){
+  var offset = Math.PI/2 + Math.PI/32;
+  var rightAng = Math.PI/2;
 
+  if(fingerData == 0 || fingerData == 7){
+    //flat
+    goalAngle1 = offset;
+    goalAngle2 = offset;
+    goalAngle3 = offset;
+    goalAngle4 = offset;
+  }
+  if(fingerData == 1 || fingerData == 4){
+    //fist
+    goalAngle1 = offset + rightAng*.73;
+    goalAngle2 = offset + rightAng*.71;
+    goalAngle3 = offset + rightAng*.76;
+    goalAngle4 = offset + rightAng*.8;
+  }
+  if(fingerData == 2){
+    //thumb and pointer pinch
+    goalAngle1 = offset + rightAng*.45;
+    goalAngle2 = offset;
+    goalAngle3 = offset;
+    goalAngle4 = offset;
+  }
+  if(fingerData == 3){
+    //thumb and middle
+    goalAngle1 = offset;
+    goalAngle2 = offset + rightAng*.55;
+    goalAngle3 = offset;
+    goalAngle4 = offset;
+  }
+  if(fingerData == 5){
+    //thumb and ring
+    goalAngle1 = offset;
+    goalAngle2 = offset;
+    goalAngle3 = offset + rightAng*.55;
+    goalAngle4 = offset;
+  }
+  if(fingerData == 6){
+    //thumb and pinkie
+    goalAngle1 = offset;
+    goalAngle2 = offset;
+    goalAngle3 = offset;
+    goalAngle4 = offset + rightAng*.60;
+  }
+}
+
+function rotateToAngle(goal1, goal2, goal3, goal4){
+  var angRate = 0.015
+
+  if(angle1 > goal1 + angRate){
+    angle1 -= angRate;
+  }else if(angle1 < goal1 - angRate){
+    angle1 += angRate;
+  }
+
+  if(angle2 > goal2 + angRate){
+    angle2 -= angRate;
+  }else if(angle2 < goal2 - angRate){
+    angle2 += angRate;
+  }
+
+  if(angle3 > goal3 + angRate){
+    angle3 -= angRate;
+  }else if(angle3 < goal3 - angRate){
+    angle3 += angRate;
+  }
+
+  if(angle4 > goal4 + angRate){
+    angle4 -= angRate;
+  }else if(angle4 < goal4 - angRate){
+    angle4 += angRate;
+  }
+}
 
 function init() {
 
   // camera
-  camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
+  camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
   camera.position.z = 500;
 
   // camera controls
   controls = new THREE.OrbitControls( camera );
   controls.damping = 0.2;
   controls.minDistance = 0;
-  controls.maxDistance = 800;
+  controls.maxDistance = 1500;
   controls.addEventListener( 'change', render );
 
   // scene
@@ -69,16 +155,19 @@ function init() {
 
   // lights
 
-  light = new THREE.DirectionalLight( 0xffffff );
+  light = new THREE.DirectionalLight( 0xffffff, 1 );
   light.position.set( 1, 1, 1 );
   scene.add( light );
 
-  light = new THREE.DirectionalLight( 0x002288 );
+  light = new THREE.DirectionalLight( 0x000000, 1 );
   light.position.set( -1, -1, -1 );
   scene.add( light );
 
-  light = new THREE.AmbientLight( 0x222222 );
+  light = new THREE.AmbientLight( 0x202020, 1 );
   scene.add( light );
+
+
+
 
 
   // renderer
@@ -133,7 +222,12 @@ function createFinger(shift){
     }
 
     var sphere = new THREE.SphereGeometry( jointRadius, 32, 32 );
-    var cylinder = new THREE.CylinderGeometry( ligRadius, ligRadius, ligLength, 20 );
+    var cylinder;
+    if(i == 3){
+      cylinder = new THREE.CylinderGeometry( ligRadius, ligRadius, ligLength - 10, 20 );
+    }else{
+      cylinder = new THREE.CylinderGeometry( ligRadius, ligRadius, ligLength, 20 );
+    }
     cylinder.applyMatrix( new THREE.Matrix4().makeTranslation( 0, ligLength/2, 0 ) );
 
 
@@ -144,7 +238,11 @@ function createFinger(shift){
     //reset finger orgin
     ligament.rotation.x = Math.PI/2;
     joint.position.z = i*ligLength;
-    ligament.position.z = i*ligLength;
+    if(i == 3){
+      ligament.position.z = i*ligLength - 900;
+    }else{
+      ligament.position.z = i*ligLength;
+    }
 
     //offset finger starting position
     if( i == 2 ){
@@ -173,13 +271,22 @@ function createHand(){
 
   var handBase = {}
   for(var i = 1; i <= 2;i++){
-    var cylinder = new THREE.CylinderGeometry( 5, 5, 100, 20 );
+    var cylinder = new THREE.CylinderGeometry( 5, 5, 80, 20 );
     var sidehand = new THREE.Mesh(cylinder,material);
     sidehand.rotation.x = Math.PI/2;
-    sidehand.position.x = ((i-1) * -85) - 35;
+    sidehand.position.x = ((i-1) * -66.5) - 44;
     scene.add(sidehand);
     handBase["sidehand" + i.toString()] = sidehand;
   }
+
+  var geometry = new THREE.TorusGeometry( 33.6, 5, 16, 100, Math.PI );
+  var backhand = new THREE.Mesh( geometry, material );
+  backhand.position.x = -76.4;
+  backhand.position.z = -40;
+  backhand.rotation.x = Math.PI*3/2;
+  scene.add( backhand );
+  handBase['backhand'] = backhand
+
   hand["base"] = handBase;
 
 
@@ -210,7 +317,19 @@ function createHand(){
     ligament.position.x = -20;
     joint.position.x = -20;
 
-
+    if(i == 1){
+      ligament.rotation.x += Math.PI * .4
+      ligament.rotation.z -= Math.PI * .1
+    }else{
+      joint.position.z -= 35;
+      joint.position.y -= 45;
+      joint.position.x += 15;
+      ligament.position.z -= 35;
+      ligament.position.y -= 45;
+      ligament.position.x += 15;
+      ligament.rotation.x += Math.PI * .4
+      ligament.rotation.z += Math.PI * .05
+    }
 
 
     thumb["lig" + i.toString()] = ligament;
@@ -395,4 +514,40 @@ function setAngle(){
   hand.finger4.joint3.position.y = lig2PosY + (50* Math.cos(lig2RotX));
   hand.finger4.joint3.position.z = lig2PosZ + (50 * Math.sin(lig2RotX));
 
+}
+
+function defaultAnimation(){
+  if(angle1 > 3*Math.PI/4){
+    rotDirection = -0.01
+  }else if(angle1 < Math.PI/2){
+    rotDirection = 0.01
+  }
+
+  angle1+=rotDirection
+
+
+
+  if(angle2 > 3*Math.PI/4){
+    rot2Direction = -0.01
+  }else if(angle2 < Math.PI/2){
+    rot2Direction = 0.01
+  }
+
+  angle2+=rot2Direction
+
+  if(angle3 > 3*Math.PI/4){
+    rot3Direction = -0.01
+  }else if(angle3 < Math.PI/2){
+    rot3Direction = 0.01
+  }
+
+  angle3+=rot3Direction
+
+  if(angle4 > 3*Math.PI/4){
+    rot4Direction = -0.01
+  }else if(angle4 < Math.PI/2){
+    rot4Direction = 0.01
+  }
+
+  angle4+=rot4Direction
 }

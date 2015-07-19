@@ -37,7 +37,6 @@ var calculateAverage = function(dataset){
     for(var i = 0; i < dataset.length; i++){
         sum += dataset[i]
     }
-    console.log(sum/dataset.length)
     return (sum/dataset.length)
 }
 

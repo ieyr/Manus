@@ -33,7 +33,7 @@
 	</head>
 	<body>
 		<title>EMG Graphs - Myo.js</title>
-		<p id="calibration">Move your index finger as far up as possible then hit spacebar.</p>
+		<p id="calibration">Place your hand on a flat surface with all of your fingers together again.</p>
 		<div id="container"></div>
 
 
@@ -56,13 +56,14 @@
 	<script>
 		var calibration = []
 		var index = 0
-
+		
 		$(document).keypress(function(e){
 			if(e.keyCode == 114) {	//r is pressed
 				if(recording) {
+					window.setup = false
 					recording = false
 					for(var i = 0; i < 8; i++){
-
+						
 						var histArray = $.map(history, function(value, index) {
 						    return [value];
 						});
@@ -77,11 +78,11 @@
 						aggregateArray[index].push(calculateStandardDeviation(narray))
 					}
 					if(index==7){
-						console.log(aggregateArray)
+						endClassification()
 
 						canReceive = true
 					}
-
+					
 					history = [[]]
 					historyIndex = 0
 					if(index!=7){
@@ -89,6 +90,7 @@
 					}
 					getInstruction()
 				} else {
+					window.setup = true
 					history = [[]]
 					historyIndex = 0
 					getInstruction()
@@ -99,32 +101,33 @@
 		function getInstruction(){
 			switch(index){
 				case 1:
-					$('#calibration').text('Move your index finger as far down as possible then hit spacebar.')
+					$('#calibration').text('Make a fist.')
 					break;
 				case 2:
-					$('#calibration').text('Move your middle finger as far up as possible then hit spacebar.')
+					$('#calibration').text('Touch your index finger to your thumb with all of your other fingers straight.')
 					break;
 				case 3:
-					$('#calibration').text('Move your middle finger as far down as possible then hit spacebar.')
+					$('#calibration').text('Touch your middle finger to your thumb with all of your other fingers straight..')
 					break;
 				case 4:
-					$('#calibration').text('Move your ring finger as far up as possible then hit spacebar.')
+					$('#calibration').text('Make another fist.')
 					break;
 				case 5:
-					$('#calibration').text('Move your ring finger as far down as possible then hit spacebar.')
+					$('#calibration').text('Touch your ring finger to your thumb with all of your other fingers straight..')
 					break;
 				case 6:
-					$('#calibration').text('Move your pinky finger as far up as possible then hit spacebar.')
+					$('#calibration').text('Touch your pinky finger to your thumb with all of your other fingers straight..')
 					break;
 				case 7:
-					$('#calibration').text('Move your pinky finger as far down as possible then hit spacebar.')
+					$('#calibration').text('Place your hand on a flat surface with all of your fingers together again.')
 					break;
 				case 8:
 					$('#calibration').text('Calibration Complete')
 					break;
 			}
-
+			
 		}
+		
 
 	</script>
 

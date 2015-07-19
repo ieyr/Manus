@@ -48,7 +48,6 @@ var timesRun = 0;
 
 
 function insertNewData( x,  y,  z){
-	console.log([x,y,z])
 	 
 	currentTime = new Date().getTime();
 	
