@@ -1,115 +1,64 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<!--Creating global window variable for debugging through console-->
-		<script>global=window</script>
-		<!--                                                             -->
-
-		<!-- CDNs for visualization -->
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.min.js"></script>
-		<!--                        -->
-
-		<!-- Imported scripts -->
-		<script type="text/javascript" src='myo.js'></script>
-		<script type="text/javascript" src='emg-handler.js'></script>
-		<script type="text/javascript" src='classify-handler.js'></script>
-		<script type="text/javascript" src='livedata.js'></script>
-		<script type="text/javascript" src='util.js'></script>
-		<script type="text/javascript" src='position.js'></script>
-		<!--                  -->
+<head>
+	<title>Manus</title>
+	 <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 
-		<!-- CSS Files -->
-		<link rel="stylesheet" type="text/css" href="style/style.css"></link>
-		<!--           -->
+    <!-- Custom Fonts -->
+      <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+      <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+</head>
+<body style="">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a id ="title"class="navbar-brand" href="#">Manus</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a id="title"href="Index.html">Home</a></li>
+        <li><a id="title"href="Model.html">3D View</a></li>
+        <li><a id="title"href="Room.html">Room</a></li>
+        <li><a id="title"href="Docs.html">Documentation</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+	<div class="row">
+		<h1 id ="title-text">Generate a 3D model of your arm</h1>
+	</div>
+	<div class="row" id="info-section">
+		<div class="col-md-1"></div>
+		<div class="col-md-5">
+			<p id="content">Manus reads raw data from your Myo Armband and calculates a hand's finger position. You can get a demonstration from our 3D Viewer.</p>
+		</div>
+		<div class="col-md-1">
+			<div id="divider"></div>
+		</div>
+		<div class="col-md-4">
+			<p id="content">Go to Room to send your Myo data to Firebase and access our API. <a href="Docs.html">Documentation Here.</a></p>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+</div>
+
+<!-- Modal -->
 
 
-
-	</head>
-	<body>
-		<title>EMG Graphs - Myo.js</title>
-		<p id="calibration">Place your hand on a flat surface with all of your fingers together.</p>
-
-	</body>
-
-	<script>
-		var calibration = []
-		var index = 0
-		
-		$(document).keypress(function(e){
-			if(e.keyCode == 114) {	//r is pressed
-				if(recording) {
-					window.setup = false
-					recording = false
-					for(var i = 0; i < 8; i++){
-						
-						var histArray = $.map(history, function(value, index) {
-						    return [value];
-						});
-						for(key in history){
-							histArray.push(history[key])
-						}
-						var narray = []
-						for(var j = 0; j < histArray.length-7; j++){
-							narray.push(histArray[j][i])
-						}
-						console.log('standard deviation for port ' + i + ' on index ' + index + ': '+ calculateStandardDeviation(narray))
-						aggregateArray[index].push(calculateStandardDeviation(narray))
-					}
-					if(index==7){
-						console.log(aggregateArray)
-						endClassification()
-
-						canReceive = true
-					}
-					
-					history = [[]]
-					historyIndex = 0
-					if(index!=7){
-						index++
-					}
-					getInstruction()
-				} else {
-					window.setup = true
-					history = [[]]
-					historyIndex = 0
-					getInstruction()
-					recording = true
-				}
-			}
-		})
-		function getInstruction(){
-			switch(index){
-				case 1:
-					$('#calibration').text('Make a fist.')
-					break;
-				case 2:
-					$('#calibration').text('Touch your index finger to your thumb with all of your other fingers straight.')
-					break;
-				case 3:
-					$('#calibration').text('Touch your middle finger to your thumb with all of your other fingers straight..')
-					break;
-				case 4:
-					$('#calibration').text('Make another fist.')
-					break;
-				case 5:
-					$('#calibration').text('Touch your ring finger to your thumb with all of your other fingers straight..')
-					break;
-				case 6:
-					$('#calibration').text('Touch your pinky finger to your thumb with all of your other fingers straight..')
-					break;
-				case 7:
-					$('#calibration').text('Place your hand on a flat surface with all of your fingers together again.')
-					break;
-				case 8:
-					$('#calibration').text('Calibration Complete')
-					break;
-			}
-			
-		}
-		
-	</script>
-
+</body>
 </html>

@@ -17,6 +17,8 @@ var sqSum = [0,0,0,0,0,0,0,0];
 var totalMean = [0,0,0,0,0,0,0,0];
 var allVal = new Array(8);
 
+window.setup = false
+
 for(i = 0; i < 8; i ++){
     allVal[i] = new Array(numbOfEntries);
 }
@@ -49,7 +51,6 @@ myo.on('connected', function(){
 function addNewData(values){
     var sd = runningStandardDeviation(values)
     if(window.setup){
-        console.log('added classy')
         classyCount++
         addClassifyer(sd, index)
     }

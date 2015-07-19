@@ -8,6 +8,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 
+    <!-- Imported scripts -->
+    <script type="text/javascript" src='myo.js'></script>
+    <script type="text/javascript" src='emg-handler.js'></script>
+    <script type="text/javascript" src='classify-handler.js'></script>
+    <script type="text/javascript" src='livedata.js'></script>
+    <script type="text/javascript" src='util.js'></script>
+    <script type="text/javascript" src='position.js'></script>
+    <!--                  -->
 
     
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
@@ -75,7 +83,7 @@
   			</div>
   		</div>
       <div class="alert alert-info" role="alert">
-        <h4 id="calibText">Move Your Index Finger Up, Press Calibrate, and Wait a Few Seconds</h4>
+        <h4 id="calibText">Make your hand flat and raise it above any surfaces then wait a few seconds</h4>
       </div>
         </div>
         <div class="modal-footer">
@@ -87,6 +95,73 @@
       </div>
     </div>
   </div>
-   <script src="js/Model.js"></script>
+      <div id="container"></div>
+
+
+
+
+
+
+      <script src="lib/three.min.js"></script>
+      <script src="lib/ColladaLoader.js"></script>
+      <script src="lib/OrbitControls.js"></script>
+      <script src="lib/Detector.js"></script>
+      <script src="lib/Projector.js"></script>
+      <script src="lib/CanvasRenderer.js"></script>
+
+      <script src="main.js"></script>
+
+
+    </body>
+
+    <script>
+      var calibration = []
+      var index = 0
+      window.setup = false
+      
+      function handleRecord(){
+        if(recording) {
+          window.setup = false
+          recording = false
+          for(var i = 0; i < 8; i++){
+            
+            var histArray = $.map(history, function(value, index) {
+                return [value];
+            });
+            for(key in history){
+              histArray.push(history[key])
+            }
+            var narray = []
+            for(var j = 0; j < histArray.length-7; j++){
+              narray.push(histArray[j][i])
+            }
+            console.log('standard deviation for port ' + i + ' on index ' + index + ': '+ calculateStandardDeviation(narray))
+            aggregateArray[index].push(calculateStandardDeviation(narray))
+          }
+          if(index==8){
+            console.log('ended classt')
+            endClassification()
+
+            canReceive = true
+          }
+          
+          history = [[]]
+          historyIndex = 0
+          if(index!=8){
+          }
+        } else {
+          window.setup = true
+          history = [[]]
+          historyIndex = 0
+          recording = true
+        }
+      }
+      
+        
+    
+      
+
+    </script>
+   <script src="Model.js"></script>
 </body>
 </html>
