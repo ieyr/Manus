@@ -12,15 +12,19 @@
 		<!--                        -->
 
 		<!-- Imported scripts -->
-		<script type="text/javascript" src='myo.js'></script>
-		<script type="text/javascript" src='EMGhandler.js'></script>
-		<script type="text/javascript" src='livedata.js'></script>
-		<script type="text/javascript" src='util.js'></script>
-		<!-- <script type="text/javascript" src='position.js'></script> -->
+		<script type="text/javascript" src='script/myo.js'></script>
+		<script type="text/javascript" src='script/emg-handler.js'></script>
+		<script type="text/javascript" src='script/classify-handler.js'></script>
+		<script type="text/javascript" src='script/livedata.js'></script>
+		<script type="text/javascript" src='script/util.js'></script>
+		<script type="text/javascript" src='script/position.js'></script>
 		<!--                  -->
 
+
 		<!-- CSS Files -->
-		<link rel="stylesheet" type="text/css" href="style.css"></link>
+		<link rel="stylesheet" type="text/css" href="style/style.css"></link>
+		<!--           -->
+
 
 
 	</head>
@@ -31,10 +35,8 @@
 	</body>
 
 	<script>
-
 		var calibration = []
 		var index = 0
-
 		
 		$(document).keypress(function(e){
 			if(e.keyCode == 114) {	//r is pressed
@@ -42,16 +44,12 @@
 					recording = false
 					for(var i = 0; i < 8; i++){
 						
-
 						var histArray = $.map(history, function(value, index) {
 						    return [value];
 						});
-
 						for(key in history){
 							histArray.push(history[key])
 						}
-
-
 						var narray = []
 						for(var j = 0; j < histArray.length-7; j++){
 							narray.push(histArray[j][i])
@@ -75,14 +73,11 @@
 					historyIndex = 0
 					getInstruction()
 					recording = true
-
 				}
 			}
 		})
-
 		function getInstruction(){
 			switch(index){
-
 				case 1:
 					$('#calibration').text('Move your index finger as far down as possible then hit spacebar.')
 					break;
@@ -110,9 +105,6 @@
 			}
 			
 		}
-
-
-
 		
 	</script>
 

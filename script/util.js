@@ -75,3 +75,30 @@ function angleBetween(vector1,vector2){
     return angle;
 }
 // -------------------------------------------------- //
+
+//----------------- EMG Filtering ------------------- //
+function smoothArray( values, smoothing ){
+  var value = values[0]; // start with the first input
+  for (var i=1, len=values.length; i<len; ++i){
+    var currentValue = values[i];
+    value += (currentValue - value) / smoothing;
+    values[i] = value;
+  }
+}
+
+function rectifyAndAverage (values) {
+    var returnvals = []
+    for(var i = 0; i < values.length; i++){
+        if(values[i] <= 0){
+            returnvals = -1 * values[i]
+        }else{
+            returnvals = values[i]
+        }
+    }
+    var sum = 0
+    for(var i = 0; i < returnvals.length; i++){
+        sum += returnvals[i]
+    }
+    console.log(sum)
+    return sum/returnvals.length
+}

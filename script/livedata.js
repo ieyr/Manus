@@ -4,7 +4,7 @@
 /*
 * @params values the newest readings from myo
 */
-var numbOfEntries = 50;
+var numbOfEntries = 900;
 var entriesSoFar = 0;
 var canReceive = false
 
@@ -29,10 +29,17 @@ myo.on('emg', function(data){
 
 myo.on('connected', function(){
     console.log('connected')
+    entriesSoFar =0
     myo.streamEMG(true);
 });
 
 function addNewData(values){
+    return runningStandardDeviation(values)
+    // var returnval = performWave(values)
+    // return returnval
+}
+
+function runningStandardDeviation(values){
     var standardDeviation = [0,0,0,0,0,0,0,0];
     for(i = 0; i < 8; i ++){
         allVal[i][index] = values[i];
@@ -59,6 +66,49 @@ function addNewData(values){
 
     entriesSoFar ++;
     return standardDeviation;
+}
+
+// Includes a full wave rectification and a running average
+function performWave(newdata){
+
+    var rectifiedData = []
+    for(var i = 0; i < newdata.length; i++){
+        if(newdata[i] <= 0){
+            rectifiedData[i] = -1 * newdata[i];
+        }else{
+            rectifiedData[i] = newdata[i]
+        }  
+    }
+
+    for(i = 0; i < 8; i ++){
+        allVal[i][index] = rectifiedData[i];
+    }
+
+    if(entriesSoFar  > numbOfEntries  ){
+        for(i = 0; i < 8; i ++){
+            
+            totalMean[i] += allVal[i][index]-allVal[i][indexPlus];
+
+        }
+    }else{
+        for(i = 0; i < 8; i ++){
+            totalMean[i][indexPlus] += rectifiedData[i];
+            
+        }
+    }
+    
+    //index to store all of the values
+    index = indexPlus;
+    indexPlus ++;
+    indexPlus = indexPlus % numbOfEntries;
+
+    entriesSoFar ++;
+
+    var returnval = []
+    for(var i = 0; i < 8; i++){
+        returnval[i] = totalMean[i]/numbOfEntries
+    }
+    return returnval
 }
 
 
