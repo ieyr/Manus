@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+    <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
 
     <!-- Imported scripts -->
     <script type="text/javascript" src='myo.js'></script>
@@ -135,14 +135,14 @@
             for(var j = 0; j < histArray.length-7; j++){
               narray.push(histArray[j][i])
             }
-            console.log('standard deviation for port ' + i + ' on index ' + index + ': '+ calculateStandardDeviation(narray))
-            aggregateArray[index].push(calculateStandardDeviation(narray))
+            console.log(narray)
+            console.log('standard deviation for port ' + i + ' on index ' + index + ': '+ rectifyAndAverage(narray))
+            aggregateArray[index].push(rectifyAndAverage(narray))
           }
           if(index==8){
-            console.log('ended classt')
-            endClassification()
+            
 
-            canReceive = true
+            
           }
           
           history = [[]]

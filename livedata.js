@@ -17,6 +17,7 @@ var sqSum = [0,0,0,0,0,0,0,0];
 var totalMean = [0,0,0,0,0,0,0,0];
 var allVal = new Array(8);
 
+var ref = new Firebase("https://angelhacks.firebaseio.com/");
 window.setup = false
 
 for(i = 0; i < 8; i ++){
@@ -49,14 +50,15 @@ myo.on('connected', function(){
 });
 
 function addNewData(values){
-    var sd = runningStandardDeviation(values)
+    //var sd = runningStandardDeviation(values)
+    var sd = performWave(values)
     if(window.setup){
         classyCount++
         addClassifyer(sd, index)
+        console.log('classy')
     }
     return sd
-    // var sd = performWave(values)
-    // return sd
+   
 }
 
 function runningStandardDeviation(values){

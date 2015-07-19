@@ -19,18 +19,29 @@ var goalAngle2 = Math.PI/4;
 var goalAngle3 = Math.PI/4;
 var goalAngle4 = Math.PI/4;
 
+var dataX = 0
+var dataY = 0
+var dataZ = 0
+
 var fingerData = 0;
+var zeros = 100
+
+var ref = new Firebase("https://angelhacks.firebaseio.com/");
+
+var moving = false
+
+var limitCount = 0
 
 init();
 setInterval(render, 10);
 
-// myo.on('*', function(event, data){
-//   if(event == 'accelerometer'){
-//     console.log(data.x + ',' )
-//     moveHand(data.x*zeros,data.y*zeros,data.z*zeros)
-
-//   }
-// })
+myo.on('*', function(event, data){
+  if(event == 'accelerometer'){
+    dataX = data.x
+    dataY = data.y
+    dataZ = data.z
+  }
+})
 
 
 
@@ -46,11 +57,24 @@ function animate() {
   rotateToAngle(goalAngle1, goalAngle2, goalAngle3, goalAngle4)
 
 
+  moveHand(dataX*zeros,dataY*zeros,dataZ*zeros)
+  if(limitCount%10 == 0){
+    ref.child('rohan').set({
+      ring1: Math.floor((angle1)* 180 / Math.PI),
+      middle1: Math.floor((angle2)* 180 / Math.PI),
+      pointer1: Math.floor((angle3)* 180 / Math.PI),
+      pinkie1: Math.floor((angle4)* 180 / Math.PI),
+      ring2: Math.floor((angle1)* 180 / Math.PI),
+      middle2: Math.floor((angle2)* 180 / Math.PI),
+      pointer2: Math.floor((angle3)* 180 / Math.PI),
+      pinkie2: Math.floor((angle4)* 180 / Math.PI)
+    })
+  }
 
-
-
-
+  limitCount++
   setAngle();
+
+
   controls.update();
 }
 function getGoalAngle(){

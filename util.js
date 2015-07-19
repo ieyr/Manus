@@ -87,17 +87,15 @@ function smoothArray( values, smoothing ){
 
 function rectifyAndAverage (values) {
     var returnvals = []
+    var sum = 0
     for(var i = 0; i < values.length; i++){
         if(values[i] <= 0){
-            returnvals = -1 * values[i]
+            returnvals[i] = -1 * values[i]
         }else{
-            returnvals = values[i]
+            returnvals[i] = values[i]
         }
-    }
-    var sum = 0
-    for(var i = 0; i < returnvals.length; i++){
         sum += returnvals[i]
     }
-    console.log(sum)
+
     return sum/returnvals.length
 }

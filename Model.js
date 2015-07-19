@@ -36,7 +36,7 @@ function NextCalib(){
 		progModel("Touch your thumb with your index finger and wait a few seconds")	
 	}
 	else if(index == 2){
-		progModel("Touch your thumb with your index finger and wait a few seconds")
+		progModel("Touch your thumb with your middle finger and wait a few seconds")
 	}
 	else if(index == 3){
 		progModel("Make a fist again and wait a few seconds")
