@@ -21,8 +21,11 @@
 		<!--                  -->
 
 
+
+
 		<!-- CSS Files -->
 		<link rel="stylesheet" type="text/css" href="style/style.css"></link>
+		<link href="style.css" rel="stylesheet"></link>
 		<!--           -->
 
 
@@ -31,20 +34,35 @@
 	<body>
 		<title>EMG Graphs - Myo.js</title>
 		<p id="calibration">Move your index finger as far up as possible then hit spacebar.</p>
+		<div id="container"></div>
+
+
+
+
+
+
+		<script src="lib/three.min.js"></script>
+    <script src="lib/ColladaLoader.js"></script>
+    <script src="lib/OrbitControls.js"></script>
+    <script src="lib/Detector.js"></script>
+    <script src="lib/Projector.js"></script>
+		<script src="lib/CanvasRenderer.js"></script>
+
+		<script src="main.js"></script>
+
 
 	</body>
 
 	<script>
 		var calibration = []
 		var index = 0
-		
+
 		$(document).keypress(function(e){
 			if(e.keyCode == 114) {	//r is pressed
 				if(recording) {
-					window.setup = false
 					recording = false
 					for(var i = 0; i < 8; i++){
-						
+
 						var histArray = $.map(history, function(value, index) {
 						    return [value];
 						});
@@ -60,11 +78,10 @@
 					}
 					if(index==7){
 						console.log(aggregateArray)
-						endClassification()
 
 						canReceive = true
 					}
-					
+
 					history = [[]]
 					historyIndex = 0
 					if(index!=7){
@@ -72,7 +89,6 @@
 					}
 					getInstruction()
 				} else {
-					window.setup = true
 					history = [[]]
 					historyIndex = 0
 					getInstruction()
@@ -107,9 +123,9 @@
 					$('#calibration').text('Calibration Complete')
 					break;
 			}
-			
+
 		}
-		
+
 	</script>
 
 </html>

@@ -11,6 +11,7 @@ var canReceive = false
 var indexNormal = 0;
 var indexPlus = 1;
 
+var classyCount = 0
 
 var sqSum = [0,0,0,0,0,0,0,0];
 var totalMean = [0,0,0,0,0,0,0,0];
@@ -22,8 +23,19 @@ for(i = 0; i < 8; i ++){
 
 myo.on('emg', function(data){
     if(canReceive){
-        console.log(findClosestVector(aggregateArray,addNewData(data)))
+        //console.log(findClosestVector(aggregateArray,addNewData(data)))
+        var set9 = getProb(addNewData(data))
+        var index99 = 0
+        for(var i = 1; i < set9.length; i++){
+            if(set9[i] > set9[index99]){
+                index99 = i
+            }
+        }
+        console.log(index99)
         //console.log(addNewData(data))
+
+    }else if(window.setup){
+        addNewData(data)
     }
 });
 
@@ -36,7 +48,10 @@ myo.on('connected', function(){
 function addNewData(values){
     var sd = runningStandardDeviation(values)
     if(window.setup){
-        addNewClassifyer(sd, indexNormal)
+        console.log('added classy')
+        classyCount++
+        if(classyCount%10==0)
+        addClassifyer(sd, index)
     }
     return sd
     // var returnval = performWave(values)
