@@ -1,0 +1,46 @@
+body{
+	font-family: 'Roboto', sans-serif;
+}
+#totalProg{
+	margin-top: 10px;
+}
+#title{
+	color: black;	
+}
+.text{
+	color: white;
+}
+
+.btn-title{
+	font-family: 'Roboto', sans-serif;
+	margin-top: 5px;
+	outline: none;
+	width: 80%;
+}
+#title-text{
+	text-align: center;
+	font-size: 7vmin;
+	font-family: 'Roboto', sans-serif;
+}
+#info-section{
+	font-family: 'Roboto', sans-serif;
+	margin-top: 150px;
+}
+#divider{
+	width: 5px;
+	background-color: #336699;
+	height: 175px;
+}
+#content{
+	text-align: left;
+	font-weight: 300;
+}
+h5{
+	font-size: 18px;
+}
+#progTxt{
+	font-size: 15px;
+}
+#calibText{
+	font-size: 20px;
+}
