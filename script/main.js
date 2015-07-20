@@ -59,7 +59,7 @@ function animate() {
 
   moveHand(dataX*zeros,dataY*zeros,dataZ*zeros)
   if(limitCount%10 == 0){
-    ref.child('rohan').set({
+    ref.child('rohan').update({
       ring1: Math.floor((angle1)* 180 / Math.PI),
       middle1: Math.floor((angle2)* 180 / Math.PI),
       pointer1: Math.floor((angle3)* 180 / Math.PI),

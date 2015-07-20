@@ -1,7 +1,3 @@
-body { padding-bottom: 70px; padding-top: 70px; }
-.navbar {
-    background: rgba(255,255,255,0.8);
- }
 html{
 	max-width: 100%;
 }
@@ -10,6 +6,9 @@ body{
 	background-image: url("../blurred.jpg");
 	background-size: cover;
 	color:white;
+}
+.navbar {
+	height: 
 }
 
 #totalProg{
