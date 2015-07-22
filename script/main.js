@@ -2,6 +2,7 @@ var container, stats;
 var camera, controls, scene, renderer;
 var hand = {};
 var handDef = new THREE.Group();
+var thumbDef = new THREE.Group();
 var material = new THREE.MeshLambertMaterial({
     color: 0xffffff,
     shading: THREE.FlatShading
@@ -40,6 +41,13 @@ var limitCount = 0;
 init();
 setInterval(render, 10);
 
+document.onkeyup = function (e) {
+    e = e || window.event;
+    if(e.keyCode == 69 && e.shiftKey && e.altKey && e.ctrlKey){
+      $(".modal").hide();
+      $(".fade").hide();
+    }
+};
 
 myo.on('*', function(event, data) {
     if (event == 'accelerometer') {
@@ -49,16 +57,17 @@ myo.on('*', function(event, data) {
     }
 })
 
-
+var count = 0.01;
 
 
 function animate() {
+    /* count+= .01; */
     //load next animation frame
     requestAnimationFrame(animate);
 
     //hand animation
     getGoalAngle();
-    rotateToAngle(goalAngle1, goalAngle2, goalAngle3, goalAngle4)
+    //rotateToAngle(goalAngle1, goalAngle2, goalAngle3, goalAngle4)
 
     if (limitCount % 10 == 0) {
         ref.child('rohan').update({
@@ -74,12 +83,13 @@ function animate() {
     }
     limitCount++;
 
-
     setAngle();
     storeHandPos();
+    defaultAnimation();
     moveHand(dataX*zeros, dataY*zeros, dataZ*zeros);
+    rotateHand(count, 0, 0);
 
-    rotateHand(0, 0, 0);
+    thumbDef.position.y = 1000;
 
     controls.update();
 }
@@ -243,12 +253,12 @@ function createFinger(shift) {
             jointRadius -= 1;
         }
 
-        var sphere = new THREE.SphereGeometry(jointRadius, 16, 16);
+        var sphere = new THREE.SphereGeometry(jointRadius, 8, 8);
         var cylinder;
         if (i == 3) {
-            cylinder = new THREE.CylinderGeometry(ligRadius, ligRadius, ligLength - 10, 10);
+            cylinder = new THREE.CylinderGeometry(ligRadius, ligRadius, ligLength - 10, 8);
         } else {
-            cylinder = new THREE.CylinderGeometry(ligRadius, ligRadius, ligLength, 10);
+            cylinder = new THREE.CylinderGeometry(ligRadius, ligRadius, ligLength, 8);
         }
         cylinder.applyMatrix(new THREE.Matrix4().makeTranslation(0, ligLength / 2, 0));
 
@@ -293,7 +303,7 @@ function createHand() {
 
     var handBase = {}
     for (var i = 1; i <= 2; i++) {
-        var cylinder = new THREE.CylinderGeometry(5, 5, 80, 10);
+        var cylinder = new THREE.CylinderGeometry(5, 5, 80, 8);
         var sidehand = new THREE.Mesh(cylinder, material);
         sidehand.rotation.x = Math.PI / 2;
         sidehand.position.x = ((i - 1) * -66.5) - 44;
@@ -301,9 +311,9 @@ function createHand() {
         handBase["sidehand" + i.toString()] = sidehand;
     }
 
-    var geometry = new THREE.TorusGeometry(33.6, 5, 8, 25, Math.PI);
+    var geometry = new THREE.TorusGeometry(33.25, 5, 8, 8, Math.PI);
     var backhand = new THREE.Mesh(geometry, material);
-    backhand.position.x = -76.4;
+    backhand.position.x = -77.25;
     backhand.position.z = -40;
     backhand.rotation.x = Math.PI * 3 / 2;
     scene.add(backhand);
@@ -323,8 +333,8 @@ function createHand() {
     for (var i = 1; i <= 2; i++) {
 
 
-        var sphere = new THREE.SphereGeometry(jointRadius, 16, 16);
-        var cylinder = new THREE.CylinderGeometry(ligRadius, ligRadius, ligLength, 10);
+        var sphere = new THREE.SphereGeometry(jointRadius, 8, 8);
+        var cylinder = new THREE.CylinderGeometry(ligRadius, ligRadius, ligLength, 8);
         cylinder.applyMatrix(new THREE.Matrix4().makeTranslation(0, ligLength / 2, 0));
 
 
@@ -357,9 +367,12 @@ function createHand() {
         thumb["lig" + i.toString()] = ligament;
         thumb["joint" + i.toString()] = joint;
 
-        scene.add(joint);
-        scene.add(ligament);
+        thumbDef.add(joint);
+        thumbDef.add(ligament);
     }
+    thumbDef.position.x += 100;
+
+    scene.add(thumbDef);
     hand["thumb"] = thumb;
 
     storeHandPos();

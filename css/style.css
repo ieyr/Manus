@@ -2,20 +2,22 @@ html{
 	max-width: 100%;
 }
 body{
+	max-width: 100%;
+	overflow: hidden;
 	font-family: 'Roboto', sans-serif;
 	background-image: url("../blurred.jpg");
 	background-size: cover;
 	color:white;
 }
 .navbar {
-	height: 
+	height:
 }
 
 #totalProg{
 	margin-top: 10px;
 }
 #title{
-	color: black;	
+	color: black;
 }
 .text{
 	color: white;
@@ -50,9 +52,6 @@ h5{
 }
 #progTxt{
 	font-size: 15px;
-}
-#calibText{
-	font-size: 20px;
 }
 .homeinfo{
 	margin-right: auto;
