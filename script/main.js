@@ -7,26 +7,31 @@ var material = new THREE.MeshLambertMaterial({
     shading: THREE.FlatShading
 });
 var rotationInterval = 0.01;
+
+//ligament angles
 var angle1 = Math.PI / 2;
 var angle2 = Math.PI / 2 + 0.2;
 var angle3 = Math.PI / 2 + 0.6;
 var angle4 = Math.PI / 2 + 1.0;
 
+//defaultAnimation directions
 var rotDirection = 1
 var rot2Direction = 1
 var rot3Direction = 1
 var rot4Direction = 1
 
+//ligament animations
 var goalAngle1 = Math.PI / 4;
 var goalAngle2 = Math.PI / 4;
 var goalAngle3 = Math.PI / 4;
 var goalAngle4 = Math.PI / 4;
 
+//hand postion
 var dataX = 0
 var dataY = 0
 var dataZ = 0
 
-var fingerData = 0;
+var fingerData = 0; //current finger event
 var zeros = 100;
 var ref = new Firebase("https://angelhacks.firebaseio.com/");
 var moving = false;
@@ -51,13 +56,9 @@ function animate() {
     //load next animation frame
     requestAnimationFrame(animate);
 
-
     //hand animation
-
     getGoalAngle();
     rotateToAngle(goalAngle1, goalAngle2, goalAngle3, goalAngle4)
-
-
 
     if (limitCount % 10 == 0) {
         ref.child('rohan').update({
@@ -78,6 +79,7 @@ function animate() {
     storeHandPos();
     moveHand(dataX*zeros, dataY*zeros, dataZ*zeros);
 
+    rotateHand(0, 0, 0);
 
     controls.update();
 }
@@ -161,11 +163,11 @@ function rotateToAngle(goal1, goal2, goal3, goal4) {
 
 function init() {
 
-    // camera
+    //camera
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.z = 500;
 
-    // camera controls
+    //camera controls
     controls = new THREE.OrbitControls(camera);
     controls.damping = 0.2;
     controls.minDistance = 0;
@@ -176,15 +178,15 @@ function init() {
     scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0xcccccc, 0.0002);
 
-    // world
+    //world
 
     createHand();
 
     //grid
     createGrid()
 
-    // lights
-	light = new THREE.DirectionalLight(0xffffff, 1);
+    //lights
+	  light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(1, 1, 1);
     scene.add(light);
 
@@ -198,7 +200,7 @@ function init() {
 
 
 
-    // renderer
+    //renderer
     renderer = new THREE.WebGLRenderer({
         antialias: false
     });
@@ -219,20 +221,14 @@ function init() {
 }
 
 function onWindowResize() {
-
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-
     renderer.setSize(window.innerWidth, window.innerHeight);
-
     render();
-
 }
 
 function render() {
-
     renderer.render(scene, camera);
-
 }
 
 function createFinger(shift) {
@@ -241,7 +237,6 @@ function createFinger(shift) {
     var ligLength = 50;
     var ligRadius = 5;
     var jointRadius = 10;
-
 
     for (var i = 1; i <= 3; i++) {
         if (i > 1) {
@@ -389,7 +384,6 @@ function storeHandPos() {
 
                 }
             }
-            handDef[key] = objDef;
         }
     }
 }
