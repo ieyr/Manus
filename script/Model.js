@@ -39,7 +39,7 @@ function getMyoConnection(){
 }
 var time = 5
 function startInterval(){
-	$("#NextCalib").hide()
+	$("#NextCalib").prop("disabled",true);
 	interval = setInterval(function(){timer()}, 1000)
 	recording = true
 	window.setup = true
@@ -84,7 +84,7 @@ function NextCalib(){
 	index+=1
 	function progModel(text){
 		$("#calibText").text("" + text)
-		$("#NextCalib").show()
+		$("#NextCalib").prop("disabled",false);
 		var time = 5
 
 		handleRecord()
