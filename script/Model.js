@@ -18,13 +18,19 @@ function calibStart(){
 	$("#startModal").modal("hide");
 	$("#calibModal").modal('show');
 }
-setInterval(getMyoConnection, 100);
+setInterval(getMyoConnection, 1000);
 
 function getMyoConnection(){
   if(myoIsConnected){
-    $("#myo-connect").switchClass("alert-danger", "alert-success");
+    $("#myo-connect").switchClass("alert-danger", "alert-success", 50);
+    $("#myo-connect-icon").switchClass("glyphicon-exclamation-sign", "glyphicon-ok", 50);
+    $(".myo-connect-desc").text("Your Myo has successfully connected!");
+    $("#myo-connect-calib").fadeOut();
   }else{
-    $("#myo-connect").switchClass("alert-success", "alert-danger");
+    $("#myo-connect").switchClass("alert-success", "alert-danger", 50);
+    $("#myo-connect-icon").switchClass("glyphicon-ok", "glyphicon-exclamation-sign", 50);
+    $(".myo-connect-desc").text("Make sure to connect your Myo.");
+    $("#myo-connect-calib").fadeIn();
   }
 }
 var time = 5

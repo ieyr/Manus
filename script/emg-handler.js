@@ -20,4 +20,5 @@ myo.on('emg', function(data){
 myo.on('connected', function(){
 	console.log('connected')
 	myo.streamEMG(true);
+	myoIsConnected = true;
 });

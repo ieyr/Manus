@@ -8,9 +8,10 @@ body{
 	background-image: url("../blurred.jpg");
 	background-size: cover;
 	color:white;
+	padding: 0 0 0 0;
 }
-.navbar {
-	height:
+.navbar-default{
+	margin: 0;
 }
 
 #totalProg{

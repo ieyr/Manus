@@ -53,14 +53,14 @@
         </div>
         <div class="modal-body">
           <div class="alert alert-info" role="alert">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
             <span class="sr-only">Error:</span>
             In order to use the 3D Viewer you need to calibrate your Myo.
           </div>
           <div id="myo-connect" class="alert alert-danger" role="alert">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span id="myo-connect-icon" class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span class="sr-only">Error:</span>
-            Make sure to connect your Myo
+            <span class="myo-connect-desc">Make sure to connect your Myo</span>
           </div>
           <center><img src="../img/myo.png"></center>
         <div class="modal-footer">
@@ -88,7 +88,12 @@
   			</div>
   		</div>
       <div class="alert alert-info" role="alert">
-        <div id="calibText">Make your hand flat and raise it above any surfaces then wait a few seconds</div>
+        <span id="calibText">Make your hand flat and raise it above any surfaces then wait a few seconds</span>
+      </div>
+      <div id="myo-connect-calib" class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        Make sure to connect your Myo
       </div>
         </div>
         <div class="modal-footer">
@@ -127,7 +132,12 @@
             }
             var narray = []
             for(var j = 0; j < histArray.length-7; j++){
-              narray.push(histArray[j][i])
+              try{
+                narray.push(histArray[j][i]);
+              }catch(e){
+                console.error("Myo is not connected.");
+                myoIsConnected = false;
+              }
             }
             console.log(narray)
             console.log('standard deviation for port ' + i + ' on index ' + index + ': '+ rectifyAndAverage(narray))
