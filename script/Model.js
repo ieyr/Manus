@@ -26,11 +26,13 @@ function getMyoConnection(){
     $("#myo-connect-icon").switchClass("glyphicon-exclamation-sign", "glyphicon-ok", 50);
     $(".myo-connect-desc").text("Your Myo has successfully connected!");
     $("#myo-connect-calib").fadeOut();
+    $("#NextCalib").prop("disabled",false);
   }else{
     $("#myo-connect").switchClass("alert-success", "alert-danger", 50);
     $("#myo-connect-icon").switchClass("glyphicon-ok", "glyphicon-exclamation-sign", 50);
     $(".myo-connect-desc").text("Make sure to connect your Myo.");
     $("#myo-connect-calib").fadeIn();
+    $("#NextCalib").prop("disabled",true);
   }
 }
 var time = 5
