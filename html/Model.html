@@ -1,178 +1,239 @@
 <html>
+
 <head>
-  <title>Dexto</title>
-  <!-- Bootstrap Core CSS -->
-  <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
-  <link href="../style/material-fullpalette.min.css" rel="stylesheet">
-  <link href="../style/ripples.min.css" rel="stylesheet">
+    <title>Dexto</title>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+    <link href="../css/material-fullpalette.min.css" rel="stylesheet">
+    <link href="../css/ripples.min.css" rel="stylesheet">
 
-  <!-- Plugin CSS -->
-  <link rel="stylesheet" href="../css/animate.min.css" type="text/css">
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="../css/animate.min.css" type="text/css">
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="../css/model.css" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../style/model.css" type="text/css">
 
 </head>
+
 <body>
-  <nav class="navbar navbar-material-grey-50">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Dexto</a>
-      </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="../index.html">Home</a></li>
-          <li><a href="Model.html">3D View</a></li>
-          <li><a href="Room.html">Room</a></li>
-          <li><a href="Docs.html">Documentation</a></li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
-  <div class="modal fade" id="startModal" tabindex="-1" role="dialog" aria-labelledby="startModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-
-          <h4 class="modal-title" id="startModalLabel">Calibration</h4>
+    <div class="navbar navbar-material-grey-50">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-material-light-blue-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Dexto<div class="ripple-wrapper"></div></a>
         </div>
-        <div class="modal-body">
-          <div class="alert alert-info shadow-z-1" role="alert">
-            <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
-            <span class="sr-only">Error:</span>
-            In order to use the 3D Viewer you need to calibrate your Myo.
-          </div>
-          <div id="myo-connect" class="alert alert-danger shadow-z-1" role="alert">
-            <span id="myo-connect-icon" class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <span class="sr-only">Error:</span>
-            <span class="myo-connect-desc">Make sure to connect your Myo</span>
-          </div>
-          <center><img src="../img/myo.png"></center>
-          <div class="modal-footer">
-            <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-            <a id="cancel" href="../index.html" type="button" class="btn btn-primart">Cancel</a>
-            <button id ="startCalib" type="button" class="btn btn-material-blue">Start Calibration</button>
-          </div>
+        <div class="navbar-collapse collapse navbar-material-light-blue-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="html/model.html">3D View</a></li>
+                <li><a href="html/room.html">Room</a></li>
+                <li><a href="html/docs.html">Docs</a></li>
+            </ul>
         </div>
-      </div>
     </div>
-  </div>
 
-  <div class="modal fade" id="calibModal" tabindex="-1" role="dialog" aria-labelledby="calibModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
+    <div class="modal fade" id="startModal" tabindex="-1" role="dialog" aria-labelledby="startModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
 
-          <h4 class="modal-title" id="calibModalLabel">Calibration</h4>
-        </div>
-        <div class="modal-body">
-          <h5 id="progTxt">Calibration Progress</h5>
-          <div id="totalProg" class="progress">
-            <div id= "progress"class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"aria-valuemax="100" style="width: 0%;">
-              <span class="sr-only">0% Complete</span>
+                    <h4 class="modal-title" id="startModalLabel">Calibration</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="totalProg" class="progress">
+                        <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                            <span class="sr-only">0% Complete</span>
+                        </div>
+                    </div>
+                    <div class="alert alert-info shadow-z-1" role="alert">
+                        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span> In order to use the 3D Viewer you need to calibrate your Myo.
+                    </div>
+                    <div id="myo-connect" class="alert alert-danger shadow-z-1" role="alert">
+                        <span id="myo-connect-icon" class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        <span class="myo-connect-desc">Make sure to connect your Myo</span>
+                    </div>
+
+                    <center>
+                        <svg width="343" height="254" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <title>background</title>
+                                <rect x="-1" y="-1" width="345" height="256" id="canvas_background" fill="none" />
+                            </g>
+
+                            <g>
+                                <title>Layer 1</title>
+                                <path fill="none" stroke="#00BBDE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m180.83943,109.42042c-5.5,-2.6 -5.79999,-10.1 -6.40002,-16.1c-1.79999,-16.9 -12.29999,-31.40003 -19.09998,-46.90002c-2.90002,-6.5 -5,-13.20001 -7.20001,-20c-2,-5.89999 -4.39996,-16.70001 -6,-21.80002c-0.70001,-2 -1.59998,-2.39999 -1.59998,-2.39999c-4.20001,-2 -9.40002,0.39999 -12,4.30002c-2.60004,3.89999 -3.00002,8.79999 -2.7,13.5c0.49998,8.89999 2.99999,17.5 3.40002,26.29999c0.39995,10.1 -2.40002,20.1 -7.70004,28.79998" id="svg_28" />
+                                <path fill="none" stroke="#00BBDE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m82.83942,68.02042c-16.2,-9.10001 -32.8,-19.10001 -48.39999,-29.29999c-3.9,-2.60001 -9.10001,-6.30002 -8,-11.5c1.29999,-5.20001 6,-5.40002 10.19998,-3.5c8.60001,3.79999 17.10001,8.19998 25.5,13.19998c9,5.4 16.5,9.30002 27.30001,14.9c11.19997,5.80001 29.89999,17.40002 36.59999,11.80001" id="svg_29" />
+                                <path fill="none" stroke="#00BBDE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m82.83942,68.02042c-0.8,2.20001 -2.5,8.10001 -3.3,10.20001" id="svg_30" />
+                                <path fill="none" stroke="#00BBDE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m79.13942,78.22044c-22.10002,-4.79999 -41.7,-15.8 -63.8,-22.10001c-3.30002,-0.89999 -9.40002,-2.69998 -12,0.10001c-4.70001,5.20001 0.5,9.70002 5.59998,11.79999c20.70001,8.40002 41.20001,15.80003 62.5,22.5" id="svg_31" />
+                                <path fill="none" stroke="#00BBDE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m71.73944,90.62041c0.1,1.30003 0.29996,4.10001 0.39999,5.4c-8.39997,0.80002 -16.7,0.70001 -24.79999,1.20001c-10.20001,0.70001 -25.79999,1.39999 -30.79999,1.60001c-7.30001,0.29998 -14.40002,-0.5 -14,6.89999c0.29999,4.39999 4.79999,6.29999 9,6.5c20.5,1.29999 38.3,0.89999 55.7,0.89999l1.6,0c1,2.20002 3.29999,6.5 4.29999,8.80003c-15.79999,6.39999 -43.5,12.39999 -49.09998,13.89999c-8.40002,2 -5.40002,12.19998 3.4,11.19998c13.6,-1.3 23.79999,-2.19998 37.4,-4.8c8.1,-1.60001 21.29998,-1 25.2,0c2.09999,0.5 15.30001,7.5 31.5,9.5c16.20005,2.10002 28.39997,-1 32.89999,-3.5" id="svg_32" />
+                                <path stroke="#00BBDE" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m197.43941,108.52042c-9.5,-3.89999 -18.59998,-8.10001 -22.5,-10.5" id="svg_33" />
+                                <path fill="none" stroke="#00BBDE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m145.53944,151.92041c3.29999,0.89999 11.40001,5.10001 18.20001,8.60001" id="svg_34" />
+                                <path fill="none" stroke="#00BBDE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m120.03944,87.62041c0,0 -5.89999,16.60001 7.70002,27.30003" id="svg_35" />
+                                <line stroke="#00BBDE" fill="none" stroke-width="3" stroke-opacity="null" fill-opacity="null" x1="161.77102" y1="158.39314" x2="306.90782" y2="246.64771" id="svg_44" stroke-linejoin="round" stroke-linecap="round" transform="rotate(-0.802534282207489 234.33943176269918,202.52041625976648) " />
+                                <line stroke="#00BBDE" fill="none" stroke-width="3" stroke-opacity="null" fill-opacity="null" x1="195.56093" y1="106.39166" x2="341.11791" y2="164.6492" id="svg_46" stroke-linejoin="round" stroke-linecap="round" transform="rotate(-0.802534282207489 268.33941650390403,135.5204162597668) " />
+                                <rect fill="none" stroke-width="3" fill-opacity="null" x="228.21287" y="180.62652" width="26.25315" height="49.78786" id="svg_49" transform="rotate(-66.18585968017578 241.33946228027344,205.52044677734375) " rx="5" stroke="#0e0e0e" />
+                                <rect fill="none" stroke-width="3" fill-opacity="null" x="257.21287" y="116.62652" width="26.25315" height="49.78786" id="svg_51" transform="rotate(-66.18585968017578 270.3394470214843,141.52043151855466) " rx="5" stroke="#0e0e0e" />
+                                <rect fill="none" stroke-width="3" fill-opacity="null" x="242.21287" y="148.62652" width="26.25315" height="49.78786" id="svg_52" transform="rotate(-66.18585968017578 255.33947753906253,173.52044677734375) " rx="5" stroke="#0e0e0e" />
+                                <path transform="rotate(-1.7782862186431885 319.78231811523375,247.05554199218628) " fill="none" stroke="#00BBDE" stroke-width="3" stroke-opacity="null" fill-opacity="null" d="m304.52328,243c4,3 13,9 17,8c4,-1 14,-7 13.5,-7" id="svg_3" />
+                            </g>
+                        </svg>
+                    </center>
+                    <div class="modal-footer">
+                        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                        <a id="cancel" href="../index.html" type="button" class="btn btn-primart">Cancel</a>
+                        <button id="startCalib" type="button" class="btn btn-material-blue">Start Calibration</button>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="alert alert-info shadow-z-1" role="alert">
-            <span id="calibText">Make your hand flat and raise it above any surfaces then wait a few seconds</span>
-          </div>
-          <div id="myo-connect-calib" class="alert alert-danger shadow-z-1" role="alert">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <span class="sr-only">Error:</span>
-            Make sure to connect your Myo
-          </div>
         </div>
-        <div class="modal-footer">
-          <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-          <h4 id="timeLeft"></h4>
-          <a id="cancel" href="../index.html" type="button" class="btn btn-primart">Cancel</a>
-          <button id ="NextCalib" type="button" class="btn btn-material-blue">Calibrate</button>
-        </div>
-      </div>
     </div>
-  </div>
-  <div id="container"></div>
+
+    <div class="modal fade" id="calibModal" tabindex="-1" role="dialog" aria-labelledby="calibModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title" id="calibModalLabel">Calibration</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 id="progTxt">Calibration Progress</h5>
+                    <div id="totalProg" class="progress">
+                        <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                            <span class="sr-only">0% Complete</span>
+                        </div>
+                    </div>
+                    <div class="alert alert-info shadow-z-1" role="alert">
+                        <span id="calibText">Make your hand flat and raise it above any surfaces then wait a few seconds</span>
+                    </div>
+                    <div id="myo-connect-calib" class="alert alert-danger shadow-z-1" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span> Make sure to connect your Myo
+                    </div>
+                </div>
+                <center>
+                    <svg width="343" height="254" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <title>background</title>
+                            <rect x="-1" y="-1" width="345" height="256" id="canvas_background" fill="none" />
+                        </g>
+
+                        <g>
+                            <title>Layer 1</title>
+                            <path fill="none" stroke="#00BBDE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m180.83943,109.42042c-5.5,-2.6 -5.79999,-10.1 -6.40002,-16.1c-1.79999,-16.9 -12.29999,-31.40003 -19.09998,-46.90002c-2.90002,-6.5 -5,-13.20001 -7.20001,-20c-2,-5.89999 -4.39996,-16.70001 -6,-21.80002c-0.70001,-2 -1.59998,-2.39999 -1.59998,-2.39999c-4.20001,-2 -9.40002,0.39999 -12,4.30002c-2.60004,3.89999 -3.00002,8.79999 -2.7,13.5c0.49998,8.89999 2.99999,17.5 3.40002,26.29999c0.39995,10.1 -2.40002,20.1 -7.70004,28.79998" id="svg_28" />
+                            <path fill="none" stroke="#00BBDE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m82.83942,68.02042c-16.2,-9.10001 -32.8,-19.10001 -48.39999,-29.29999c-3.9,-2.60001 -9.10001,-6.30002 -8,-11.5c1.29999,-5.20001 6,-5.40002 10.19998,-3.5c8.60001,3.79999 17.10001,8.19998 25.5,13.19998c9,5.4 16.5,9.30002 27.30001,14.9c11.19997,5.80001 29.89999,17.40002 36.59999,11.80001" id="svg_29" />
+                            <path fill="none" stroke="#00BBDE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m82.83942,68.02042c-0.8,2.20001 -2.5,8.10001 -3.3,10.20001" id="svg_30" />
+                            <path fill="none" stroke="#00BBDE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m79.13942,78.22044c-22.10002,-4.79999 -41.7,-15.8 -63.8,-22.10001c-3.30002,-0.89999 -9.40002,-2.69998 -12,0.10001c-4.70001,5.20001 0.5,9.70002 5.59998,11.79999c20.70001,8.40002 41.20001,15.80003 62.5,22.5" id="svg_31" />
+                            <path fill="none" stroke="#00BBDE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m71.73944,90.62041c0.1,1.30003 0.29996,4.10001 0.39999,5.4c-8.39997,0.80002 -16.7,0.70001 -24.79999,1.20001c-10.20001,0.70001 -25.79999,1.39999 -30.79999,1.60001c-7.30001,0.29998 -14.40002,-0.5 -14,6.89999c0.29999,4.39999 4.79999,6.29999 9,6.5c20.5,1.29999 38.3,0.89999 55.7,0.89999l1.6,0c1,2.20002 3.29999,6.5 4.29999,8.80003c-15.79999,6.39999 -43.5,12.39999 -49.09998,13.89999c-8.40002,2 -5.40002,12.19998 3.4,11.19998c13.6,-1.3 23.79999,-2.19998 37.4,-4.8c8.1,-1.60001 21.29998,-1 25.2,0c2.09999,0.5 15.30001,7.5 31.5,9.5c16.20005,2.10002 28.39997,-1 32.89999,-3.5" id="svg_32" />
+                            <path stroke="#00BBDE" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m197.43941,108.52042c-9.5,-3.89999 -18.59998,-8.10001 -22.5,-10.5" id="svg_33" />
+                            <path fill="none" stroke="#00BBDE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m145.53944,151.92041c3.29999,0.89999 11.40001,5.10001 18.20001,8.60001" id="svg_34" />
+                            <path fill="none" stroke="#00BBDE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m120.03944,87.62041c0,0 -5.89999,16.60001 7.70002,27.30003" id="svg_35" />
+                            <line stroke="#00BBDE" fill="none" stroke-width="3" stroke-opacity="null" fill-opacity="null" x1="161.77102" y1="158.39314" x2="306.90782" y2="246.64771" id="svg_44" stroke-linejoin="round" stroke-linecap="round" transform="rotate(-0.802534282207489 234.33943176269918,202.52041625976648) " />
+                            <line stroke="#00BBDE" fill="none" stroke-width="3" stroke-opacity="null" fill-opacity="null" x1="195.56093" y1="106.39166" x2="341.11791" y2="164.6492" id="svg_46" stroke-linejoin="round" stroke-linecap="round" transform="rotate(-0.802534282207489 268.33941650390403,135.5204162597668) " />
+                            <rect fill="none" stroke-width="3" fill-opacity="null" x="228.21287" y="180.62652" width="26.25315" height="49.78786" id="svg_49" transform="rotate(-66.18585968017578 241.33946228027344,205.52044677734375) " rx="5" stroke="#0e0e0e" />
+                            <rect fill="none" stroke-width="3" fill-opacity="null" x="257.21287" y="116.62652" width="26.25315" height="49.78786" id="svg_51" transform="rotate(-66.18585968017578 270.3394470214843,141.52043151855466) " rx="5" stroke="#0e0e0e" />
+                            <rect fill="none" stroke-width="3" fill-opacity="null" x="242.21287" y="148.62652" width="26.25315" height="49.78786" id="svg_52" transform="rotate(-66.18585968017578 255.33947753906253,173.52044677734375) " rx="5" stroke="#0e0e0e" />
+                            <path transform="rotate(-1.7782862186431885 319.78231811523375,247.05554199218628) " fill="none" stroke="#00BBDE" stroke-width="3" stroke-opacity="null" fill-opacity="null" d="m304.52328,243c4,3 13,9 17,8c4,-1 14,-7 13.5,-7" id="svg_3" />
+                        </g>
+                    </svg>
+                </center>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                    <h4 id="timeLeft"></h4>
+                    <a id="cancel" href="../index.html" type="button" class="btn btn-primart">Cancel</a>
+                    <button id="NextCalib" type="button" class="btn btn-material-blue">Calibrate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="container"></div>
 
 
 
-  <script>
-  var calibration = []
-  var index = 0
-  window.setup = false
+    <script>
+    var calibration = []
+    var index = 0
+    window.setup = false
 
 
-  // Handles an event from the Modal
-  function handleRecord(){
-    if(recording) {
-      window.setup = false
-      recording = false
-      for(var i = 0; i < 8; i++){
+    // Handles an event from the Modal
+    function handleRecord() {
+        if (recording) {
+            window.setup = false
+            recording = false
+            for (var i = 0; i < 8; i++) {
 
-        var histArray = $.map(history, function(value, index) {
-          return [value];
-        });
-        for(key in history){
-          histArray.push(history[key])
+                var histArray = $.map(history, function(value, index) {
+                    return [value];
+                });
+                for (key in history) {
+                    histArray.push(history[key])
+                }
+                var narray = []
+                for (var j = 0; j < histArray.length - 7; j++) {
+                    try {
+                        narray.push(histArray[j][i]);
+                    } catch (e) {
+                        console.error("Myo is not connected.");
+                        myoIsConnected = false;
+                    }
+                }
+                console.log(narray)
+                console.log('standard deviation for port ' + i + ' on index ' + index + ': ' + rectifyAndAverage(narray))
+                aggregateArray[index].push(rectifyAndAverage(narray))
+            }
+
+            history = [
+                []
+            ]
+            historyIndex = 0
+            if (index != 8) {}
+        } else {
+            window.setup = true
+            history = [
+                []
+            ]
+            historyIndex = 0
+            recording = true
         }
-        var narray = []
-        for(var j = 0; j < histArray.length-7; j++){
-          try{
-            narray.push(histArray[j][i]);
-          }catch(e){
-            console.error("Myo is not connected.");
-            myoIsConnected = false;
-          }
-        }
-        console.log(narray)
-        console.log('standard deviation for port ' + i + ' on index ' + index + ': '+ rectifyAndAverage(narray))
-        aggregateArray[index].push(rectifyAndAverage(narray))
-      }
-
-      history = [[]]
-      historyIndex = 0
-      if(index!=8){
-      }
-    } else {
-      window.setup = true
-      history = [[]]
-      historyIndex = 0
-      recording = true
     }
-  }
-  </script>
+    </script>
 
-  <!-- CDNs -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-  <!-- ModelJs -->
-  <script src="../script/Model.js"></script>
-  <!-- Imported scripts -->
-  <script type="text/javascript" src='../script/myo.js'></script>
-  <script type="text/javascript" src='../script/emg-handler.js'></script>
-  <script type="text/javascript" src='../script/classify-handler.js'></script>
-  <script type="text/javascript" src='../script/livedata.js'></script>
-  <script type="text/javascript" src='../script/util.js'></script>
-  <script type="text/javascript" src='../script/position.js'></script>
-  <!-- ThreeJs libraries -->
-  <script src="../lib/three.min.js"></script>
-  <script src="../lib/ColladaLoader.js"></script>
-  <script src="../lib/OrbitControls.js"></script>
-  <script src="../lib/Detector.js"></script>
-  <script src="../lib/Projector.js"></script>
-  <script src="../lib/CanvasRenderer.js"></script>
-  <script src="../script/main.js"></script>
+    <!-- Libraries -->
+    <script src="../lib/jquery.min.js"></script>
+    <script src="../lib/bootstrap.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
+    <script src="../lib/jquery-ui.min.js"></script>
+    <!-- ModelJs -->
+    <script src="../script/Model.js"></script>
+    <!-- Imported scripts -->
+    <script type="text/javascript" src='../script/myo.js'></script>
+    <script type="text/javascript" src='../script/emg-handler.js'></script>
+    <script type="text/javascript" src='../script/classify-handler.js'></script>
+    <script type="text/javascript" src='../script/livedata.js'></script>
+    <script type="text/javascript" src='../script/util.js'></script>
+    <script type="text/javascript" src='../script/position.js'></script>
+    <!-- ThreeJs libraries -->
+    <script src="../lib/three.min.js"></script>
+    <script src="../lib/ColladaLoader.js"></script>
+    <script src="../lib/OrbitControls.js"></script>
+    <script src="../lib/Detector.js"></script>
+    <script src="../lib/Projector.js"></script>
+    <script src="../lib/CanvasRenderer.js"></script>
+    <script src="../script/main.js"></script>
 
-  <!-- Material Design for Bootstrap -->
-  <script src="../js/material.min.js"></script>
-  <script src="../js/ripples.min.js"></script>
-  <script>
-  $.material.init();
-  </script>
+    <!-- Material Design for Bootstrap -->
+    <script src="../js/material.min.js"></script>
+    <script src="../js/ripples.min.js"></script>
+    <script>
+    $.material.init();
+    </script>
 
 
 </body>
+
 </html>

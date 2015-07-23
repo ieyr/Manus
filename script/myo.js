@@ -308,7 +308,7 @@
 			Myo.socket.onmessage = handleMessage;
 			Myo.socket.onerror = function(){
 				myoIsConnected = false;
-				console.error('ERR: Myo.js had an error with the socket. Double check the API version.');
+				console.error('Error: Dexto is unable to connect to your Myo');
 			};
 		}
 	};
