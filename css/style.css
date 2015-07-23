@@ -10,26 +10,7 @@ body{
 	color:white;
 	padding: 0 0 0 0;
 }
-.navbar{
-	margin: 0;
-}
 
-#totalProg{
-	margin-top: 10px;
-}
-#title{
-	color: black;
-}
-.text{
-	color: white;
-}
-
-.btn-title{
-	font-family: 'Roboto', sans-serif;
-	margin-top: 5px;
-	outline: none;
-	width: 80%;
-}
 #title-text{
 	text-align: center;
 	font-size: 7vmin;
@@ -39,25 +20,6 @@ body{
 	font-family: 'Roboto', sans-serif;
 	margin-top: 90px;
 }
-#divider{
-	width: 3px;
-	background-color: black;
-	height: 250px;
-}
-#content{
-	text-align: left;
-	font-weight: 300;
-}
-h5{
-	font-size: 18px;
-}
-#progTxt{
-	font-size: 15px;
-}
-.homeinfo{
-	margin-right: auto;
-	margin-left: auto;
-}
 .sec1{
 	border-right: 1px solid white;
 }
@@ -66,7 +28,4 @@ h5{
 }
 .rightsec p, .leftsec p{
 	font-size: 3.7vmin;
-}
-.row{
-	overflow: hidden;
 }
