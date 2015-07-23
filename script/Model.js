@@ -1,3 +1,5 @@
+var myoIsConnected = true;
+
 $("#NextCalib").click(startInterval)
 
  $(window).load(function(){
@@ -16,7 +18,15 @@ function calibStart(){
 	$("#startModal").modal("hide");
 	$("#calibModal").modal('show');
 }
+setInterval(getMyoConnection, 100);
 
+function getMyoConnection(){
+  if(myoIsConnected){
+    $("#myo-connect").switchClass("alert-danger", "alert-success");
+  }else{
+    $("#myo-connect").switchClass("alert-success", "alert-danger");
+  }
+}
 var time = 5
 function startInterval(){
 	$("#NextCalib").hide()
@@ -27,13 +37,13 @@ function startInterval(){
 function NextCalib(){
 	handleRecord()
 	var interval
-	
+
 	$("#progress").css("width",((index+1)/8)*100 +"%")
 	if(index == 0){
 		progModel("Make a fist and wait a few seconds")
 	}
 	else if(index == 1){
-		progModel("Touch your thumb with your index finger and wait a few seconds")	
+		progModel("Touch your thumb with your index finger and wait a few seconds")
 	}
 	else if(index == 2){
 		progModel("Touch your thumb with your middle finger and wait a few seconds")
@@ -69,7 +79,7 @@ function NextCalib(){
 
 		handleRecord()
 	}
-	
+
 }
 function timer(){
 		$("#timeLeft").text("" + time)
@@ -77,7 +87,7 @@ function timer(){
 		if(time==0){
 			console.log(index)
 			$("#timeLeft").text(" ")
-			time = 5	
+			time = 5
 			clearInterval(interval)
 			window.setup = false
 			recording = false

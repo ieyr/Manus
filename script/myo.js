@@ -186,7 +186,7 @@
 			if(this.isLocked) return true;
 
 			Myo.socket.send(JSON.stringify(["command", {
-				"command": "lock", 
+				"command": "lock",
 				"myo": this.id
 			}]));
 
@@ -199,8 +199,8 @@
 			clearTimeout(this.lockTimeout);
 			if(timeout){
 				Myo.socket.send(JSON.stringify(["command", {
-					"command": "unlock", 
-					"myo": this.id, 
+					"command": "unlock",
+					"myo": this.id,
 					"type": "hold"
 				}]));
 
@@ -211,8 +211,8 @@
 			else
 			{
 				Myo.socket.send(JSON.stringify(["command", {
-					"command": "unlock", 
-					"myo": this.id, 
+					"command": "unlock",
+					"myo": this.id,
 					"type": "timed"
 				}]));
 			}
@@ -307,13 +307,10 @@
 			Myo.socket = new Socket(Myo.options.socket_url + Myo.options.api_version);
 			Myo.socket.onmessage = handleMessage;
 			Myo.socket.onerror = function(){
+				myoIsConnected = false;
 				console.error('ERR: Myo.js had an error with the socket. Double check the API version.');
 			};
 		}
 	};
 	if(typeof module !== 'undefined') module.exports = Myo;
 })();
-
-
-
-
