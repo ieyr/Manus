@@ -6,6 +6,7 @@ body{
 
 .navbar{
 	margin: 0;
+    
 }
 #startModal rect {
   stroke-dasharray: 500;

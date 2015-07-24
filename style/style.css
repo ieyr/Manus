@@ -29,3 +29,19 @@ body{
 .rightsec p, .leftsec p{
 	font-size: 3.7vmin;
 }
+.logo{
+	transform: scale(.07);
+	margin: 0;
+	position: relative;
+	-webkit-transform-origin: 0% 0% 0px;
+	margin-top: -0.5vmin;
+}
+.navbar{
+	margin: 0;
+}
+
+.navbar li, .navbar ul, .navbar{
+	height: 7vmin !important;
+	line-height: 100pc;
+	font-weight: 400;
+}
