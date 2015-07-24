@@ -18,7 +18,15 @@ body{
 .navbar-brand{
 	width: 100px;
 }
-
+#model-info-btn{
+    width:30px;
+    height: 30px;
+}
+#model-info-btn span{
+    transform: scale(0.7);
+    margin-top: -13px;
+    margin-left: -12.5px;
+}
 #startModal rect {
   stroke-dasharray: 500;
   stroke-dashoffset: 500;

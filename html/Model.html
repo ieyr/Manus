@@ -190,94 +190,112 @@
         </div>
     </div>
     <div id="container">
-        <button class="btn btn-fab btn-raised btn-material-red" style="position: absolute; bottom: 3px; right: 3px">
+        <button id="model-info-btn" class="btn btn-fab btn-raised btn-material-blue" data-toggle="modal" data-target="#complete-dialog" style="position: absolute; bottom: 3px; right: 3px">
             <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             <div class="ripple-wrapper"></div>
         </button>
-    </div>
+        <div class="modal-backdrop fade in" style="height: 332px;"></div>
+        <div class="modal-dialog" style="position: absolute; left: 50%; top: 50%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Dialog</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Fore aut non quem incididunt, varias reprehenderit deserunt quem offendit,
+                        cillum proident ne reprehenderit, quem ad laborum, quo possumus praetermissum,
+                        si ne illustriora, hic appellat coniunctione, do labore aliqua quo probant. In
+                        probant voluptatibus quo mentitum est laboris. Quorum mandaremus graviterque.
+                        Mentitum id velit, dolor aut litteris, ea varias illustriora, ita commodo ita
+                        ingeniis, iis nulla appellat incurreret, aut irure amet summis pariatur ita ubi
+                        quis dolore veniam proident, consequat sed ingeniis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
-    <script>
-    var calibration = []
-    var index = 0
-    window.setup = false
+        <script>
+        var calibration = []
+        var index = 0
+        window.setup = false
 
 
-    // Handles an event from the Modal
-    function handleRecord() {
-        if (recording) {
-            window.setup = false
-            recording = false
-            for (var i = 0; i < 8; i++) {
+        // Handles an event from the Modal
+        function handleRecord() {
+            if (recording) {
+                window.setup = false
+                recording = false
+                for (var i = 0; i < 8; i++) {
 
-                var histArray = $.map(history, function(value, index) {
-                    return [value];
-                });
-                for (key in history) {
-                    histArray.push(history[key])
-                }
-                var narray = []
-                for (var j = 0; j < histArray.length - 7; j++) {
-                    try {
-                        narray.push(histArray[j][i]);
-                    } catch (e) {
-                        console.error("Myo is not connected.");
-                        myoIsConnected = false;
+                    var histArray = $.map(history, function(value, index) {
+                        return [value];
+                    });
+                    for (key in history) {
+                        histArray.push(history[key])
                     }
+                    var narray = []
+                    for (var j = 0; j < histArray.length - 7; j++) {
+                        try {
+                            narray.push(histArray[j][i]);
+                        } catch (e) {
+                            console.error("Myo is not connected.");
+                            myoIsConnected = false;
+                        }
+                    }
+                    console.log(narray)
+                    console.log('standard deviation for port ' + i + ' on index ' + index + ': ' + rectifyAndAverage(narray))
+                    aggregateArray[index].push(rectifyAndAverage(narray))
                 }
-                console.log(narray)
-                console.log('standard deviation for port ' + i + ' on index ' + index + ': ' + rectifyAndAverage(narray))
-                aggregateArray[index].push(rectifyAndAverage(narray))
+
+                history = [
+                    []
+                ]
+                historyIndex = 0
+                if (index != 8) {}
+            } else {
+                window.setup = true
+                history = [
+                    []
+                ]
+                historyIndex = 0
+                recording = true
             }
-
-            history = [
-                []
-            ]
-            historyIndex = 0
-            if (index != 8) {}
-        } else {
-            window.setup = true
-            history = [
-                []
-            ]
-            historyIndex = 0
-            recording = true
         }
-    }
-    </script>
+        </script>
 
-    <!-- Libraries -->
-    <script src="../lib/jquery.min.js"></script>
-    <script src="../lib/bootstrap.min.js"></script>
-    <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
-    <script src="../lib/jquery-ui.min.js"></script>
-    <!-- ModelJs -->
-    <script src="../script/Model.js"></script>
-    <!-- Imported scripts -->
-    <script type="text/javascript" src='../script/myo.js'></script>
-    <script type="text/javascript" src='../script/emg-handler.js'></script>
-    <script type="text/javascript" src='../script/classify-handler.js'></script>
-    <script type="text/javascript" src='../script/livedata.js'></script>
-    <script type="text/javascript" src='../script/util.js'></script>
-    <script type="text/javascript" src='../script/position.js'></script>
-    <!-- ThreeJs libraries -->
-    <script src="../lib/three.min.js"></script>
-    <script src="../lib/ColladaLoader.js"></script>
-    <script src="../lib/OrbitControls.js"></script>
-    <script src="../lib/Detector.js"></script>
-    <script src="../lib/Projector.js"></script>
-    <script src="../lib/CanvasRenderer.js"></script>
-    <script src="../script/main.js"></script>
+        <!-- Libraries -->
+        <script src="../lib/jquery.min.js"></script>
+        <script src="../lib/bootstrap.min.js"></script>
+        <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
+        <script src="../lib/jquery-ui.min.js"></script>
+        <!-- ModelJs -->
+        <script src="../script/Model.js"></script>
+        <!-- Imported scripts -->
+        <script type="text/javascript" src='../script/myo.js'></script>
+        <script type="text/javascript" src='../script/emg-handler.js'></script>
+        <script type="text/javascript" src='../script/classify-handler.js'></script>
+        <script type="text/javascript" src='../script/livedata.js'></script>
+        <script type="text/javascript" src='../script/util.js'></script>
+        <script type="text/javascript" src='../script/position.js'></script>
+        <!-- ThreeJs libraries -->
+        <script src="../lib/three.min.js"></script>
+        <script src="../lib/ColladaLoader.js"></script>
+        <script src="../lib/OrbitControls.js"></script>
+        <script src="../lib/Detector.js"></script>
+        <script src="../lib/Projector.js"></script>
+        <script src="../lib/CanvasRenderer.js"></script>
+        <script src="../script/main.js"></script>
 
-    <!-- Material Design for Bootstrap -->
-    <script src="../js/material.min.js"></script>
-    <script src="../js/ripples.min.js"></script>
-    <script>
-    $.material.init();
-    </script>
+        <!-- Material Design for Bootstrap -->
+        <script src="../js/material.min.js"></script>
+        <script src="../js/ripples.min.js"></script>
+        <script>
+        $.material.init();
+        </script>
 
 
-</body>
+    </body>
 
-</html>
+    </html>
