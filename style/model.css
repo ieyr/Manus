@@ -2,12 +2,23 @@ body{
   font-family: 'Roboto', sans-serif;
   background-image:none;
   color:black;
+  overflow: hidden;
 }
 
+.logo{
+	transform: scale(.07);
+	margin: 0;
+	position: relative;
+	-webkit-transform-origin: 0% 0% 0px;
+	margin-top: -1.2vmin;
+}
 .navbar{
 	margin: 0;
-    
 }
+.navbar-brand{
+	width: 100px;
+}
+
 #startModal rect {
   stroke-dasharray: 500;
   stroke-dashoffset: 500;

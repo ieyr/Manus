@@ -28,6 +28,7 @@ function getMyoConnection(){
     $("#myo-connect-calib").fadeOut();
     $("#NextCalib").prop("disabled",false);
     $("#startCalib").prop("disabled",false);
+    $("#startCalib").attr("title", "");
   }else{
     $("#myo-connect").switchClass("alert-success", "alert-danger", 50);
     $("#myo-connect-icon").switchClass("glyphicon-ok", "glyphicon-exclamation-sign", 50);
@@ -35,6 +36,7 @@ function getMyoConnection(){
     $("#myo-connect-calib").fadeIn();
     $("#NextCalib").prop("disabled",true);
     $("#startCalib").prop("disabled",true);
+    $("#startCalib").attr("title", "Please connect your Myo");
   }
 }
 var time = 5

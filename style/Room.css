@@ -9,7 +9,7 @@ h5{
 	margin-left: auto;
 }
 #title{
-	color: black;	
+	color: black;
 }
 .v-line{
 	position:absolute;
@@ -42,4 +42,18 @@ body{
 #title-text{
 	text-align: center;
 	font-size: 10vmin;
+}
+
+.logo{
+	transform: scale(.07);
+	margin: 0;
+	position: relative;
+	-webkit-transform-origin: 0% 0% 0px;
+	margin-top: -1.2vmin;
+}
+.navbar{
+	margin: 0;
+}
+.navbar-brand{
+	width: 100px;
 }
