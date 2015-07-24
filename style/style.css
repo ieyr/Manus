@@ -6,7 +6,8 @@ body{
 	overflow: hidden;
 	font-family: 'Roboto', sans-serif;
 	background-image: url("../blurred.jpg");
-	background-size: cover;
+	background-repeat: no-repeat;
+	background-size: length;
 	color:white;
 	padding: 0 0 0 0;
 }
@@ -39,19 +40,6 @@ body{
 .navbar{
 	margin: 0;
 }
-
-.navbar li, .navbar ul, .navbar{
-	height: 7vmin !important;
-
-	font-weight: 400;
-}
-.navbar a{
-	height: 7vmin !important;
-	line-height: 1vh !important;
-}
-.navbar-brand .ripple-wrapper{
-	width: 7.5vw;
-}
-.navbar-header{
-	width: 5%;
+.navbar-brand{
+	width: 100px;
 }
