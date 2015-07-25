@@ -13,6 +13,26 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../style/model.css" type="text/css">
 
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="../favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="../favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="../favicons/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="../favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="../favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="../favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="../favicons/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
 </head>
 
 <body>
@@ -24,7 +44,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="../index.html">
-                <svg class="logo "width="4575" height="3431" xmlns="http://www.w3.org/2000/svg">
+                <svg class="logo "width="1000" height="700" xmlns="http://www.w3.org/2000/svg">
                     <g style="pointer-events:all">
                         <title style="pointer-events: none" opacity="0.33">Layer 1</title>
                         <g transform="scale(0.8) translate(30, 90)">
@@ -194,108 +214,103 @@
             <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             <div class="ripple-wrapper"></div>
         </button>
-        <div class="modal-backdrop fade in" style="height: 332px;"></div>
-        <div class="modal-dialog" style="position: absolute; left: 50%; top: 50%">
+        <div class="infoModal modal-dialog" style="position: absolute">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Dialog</h4>
+                    <h4 class="modal-title">Commands</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Fore aut non quem incididunt, varias reprehenderit deserunt quem offendit,
-                        cillum proident ne reprehenderit, quem ad laborum, quo possumus praetermissum,
-                        si ne illustriora, hic appellat coniunctione, do labore aliqua quo probant. In
-                        probant voluptatibus quo mentitum est laboris. Quorum mandaremus graviterque.
-                        Mentitum id velit, dolor aut litteris, ea varias illustriora, ita commodo ita
-                        ingeniis, iis nulla appellat incurreret, aut irure amet summis pariatur ita ubi
-                        quis dolore veniam proident, consequat sed ingeniis.</p>
-                    </div>
+                    <p>Orbit: &#8984; + Left Click Drag</p>
+                    <p>Panning: &#8984; + Right Click Drag</p>
+                    <p>Zoom: &#8984; + Scroll</p>
                 </div>
             </div>
         </div>
+    </div>
 
 
 
-        <script>
-        var calibration = []
-        var index = 0
-        window.setup = false
+    <script>
+    var calibration = []
+    var index = 0
+    window.setup = false
 
 
-        // Handles an event from the Modal
-        function handleRecord() {
-            if (recording) {
-                window.setup = false
-                recording = false
-                for (var i = 0; i < 8; i++) {
+    // Handles an event from the Modal
+    function handleRecord() {
+        if (recording) {
+            window.setup = false
+            recording = false
+            for (var i = 0; i < 8; i++) {
 
-                    var histArray = $.map(history, function(value, index) {
-                        return [value];
-                    });
-                    for (key in history) {
-                        histArray.push(history[key])
-                    }
-                    var narray = []
-                    for (var j = 0; j < histArray.length - 7; j++) {
-                        try {
-                            narray.push(histArray[j][i]);
-                        } catch (e) {
-                            console.error("Myo is not connected.");
-                            myoIsConnected = false;
-                        }
-                    }
-                    console.log(narray)
-                    console.log('standard deviation for port ' + i + ' on index ' + index + ': ' + rectifyAndAverage(narray))
-                    aggregateArray[index].push(rectifyAndAverage(narray))
+                var histArray = $.map(history, function(value, index) {
+                    return [value];
+                });
+                for (key in history) {
+                    histArray.push(history[key])
                 }
-
-                history = [
-                    []
-                ]
-                historyIndex = 0
-                if (index != 8) {}
-            } else {
-                window.setup = true
-                history = [
-                    []
-                ]
-                historyIndex = 0
-                recording = true
+                var narray = []
+                for (var j = 0; j < histArray.length - 7; j++) {
+                    try {
+                        narray.push(histArray[j][i]);
+                    } catch (e) {
+                        console.error("Myo is not connected.");
+                        myoIsConnected = false;
+                    }
+                }
+                console.log(narray)
+                console.log('standard deviation for port ' + i + ' on index ' + index + ': ' + rectifyAndAverage(narray))
+                aggregateArray[index].push(rectifyAndAverage(narray))
             }
+
+            history = [
+                []
+            ]
+            historyIndex = 0
+            if (index != 8) {}
+        } else {
+            window.setup = true
+            history = [
+                []
+            ]
+            historyIndex = 0
+            recording = true
         }
-        </script>
+    }
+    </script>
 
-        <!-- Libraries -->
-        <script src="../lib/jquery.min.js"></script>
-        <script src="../lib/bootstrap.min.js"></script>
-        <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
-        <script src="../lib/jquery-ui.min.js"></script>
-        <!-- ModelJs -->
-        <script src="../script/Model.js"></script>
-        <!-- Imported scripts -->
-        <script type="text/javascript" src='../script/myo.js'></script>
-        <script type="text/javascript" src='../script/emg-handler.js'></script>
-        <script type="text/javascript" src='../script/classify-handler.js'></script>
-        <script type="text/javascript" src='../script/livedata.js'></script>
-        <script type="text/javascript" src='../script/util.js'></script>
-        <script type="text/javascript" src='../script/position.js'></script>
-        <!-- ThreeJs libraries -->
-        <script src="../lib/three.min.js"></script>
-        <script src="../lib/ColladaLoader.js"></script>
-        <script src="../lib/OrbitControls.js"></script>
-        <script src="../lib/Detector.js"></script>
-        <script src="../lib/Projector.js"></script>
-        <script src="../lib/CanvasRenderer.js"></script>
-        <script src="../script/main.js"></script>
+    <!-- Libraries -->
+    <script src="../lib/jquery.min.js"></script>
+    <script src="../lib/bootstrap.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
+    <script src="../lib/jquery-ui.min.js"></script>
+    <!-- ModelJs -->
+    <script src="../script/Model.js"></script>
+    <!-- Imported scripts -->
+    <script type="text/javascript" src='../script/myo.js'></script>
+    <script type="text/javascript" src='../script/emg-handler.js'></script>
+    <script type="text/javascript" src='../script/classify-handler.js'></script>
+    <script type="text/javascript" src='../script/livedata.js'></script>
+    <script type="text/javascript" src='../script/util.js'></script>
+    <script type="text/javascript" src='../script/position.js'></script>
+    <!-- ThreeJs libraries -->
+    <script src="../lib/three.min.js"></script>
+    <script src="../lib/ColladaLoader.js"></script>
+    <script src="../lib/OrbitControls.js"></script>
+    <script src="../lib/Detector.js"></script>
+    <script src="../lib/Projector.js"></script>
+    <script src="../lib/CanvasRenderer.js"></script>
+    <script src="../script/main.js"></script>
 
-        <!-- Material Design for Bootstrap -->
-        <script src="../js/material.min.js"></script>
-        <script src="../js/ripples.min.js"></script>
-        <script>
-        $.material.init();
-        </script>
+    <!-- Material Design for Bootstrap -->
+    <script src="../js/material.min.js"></script>
+    <script src="../js/ripples.min.js"></script>
+    <script>
+    $.material.init();
+    </script>
 
 
-    </body>
+</body>
 
-    </html>
+</html>

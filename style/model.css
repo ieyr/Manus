@@ -23,9 +23,9 @@ body{
     height: 30px;
 }
 #model-info-btn span{
-    transform: scale(0.7);
-    margin-top: -13px;
-    margin-left: -12.5px;
+    transform: scale(0.5);
+    margin-top: -13.75px;
+    margin-left: -12.75px;
 }
 #startModal rect {
   stroke-dasharray: 500;
@@ -46,6 +46,11 @@ body{
   stroke-dasharray: 170;
   stroke-dashoffset: 170;
   animation: dashCalib 8s linear alternate infinite;
+}
+
+.infoModal{
+    left: calc(50% - 300px);
+    top: calc(50% - 200px);
 }
 
 @keyframes dashCalib {
