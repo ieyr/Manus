@@ -27,18 +27,18 @@ body{
     margin-top: -13.75px;
     margin-left: -12.75px;
 }
-#startModal rect {
-  stroke-dasharray: 500;
-  stroke-dashoffset: 500;
-  animation: dashStart 8s linear alternate infinite;
+.myoStart path, .myoStart line{
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dashStart 4s linear alternate infinite;
 }
 
 @keyframes dashStart {
   from {
-    stroke-dashoffset: 500;
+    stroke-dashoffset: 1100;
   }
   to {
-    stroke-dashoffset: 0;
+    stroke-dashoffset: 100;
   }
 }
 
@@ -50,7 +50,13 @@ body{
 
 .infoModal{
     left: calc(50% - 300px);
-    top: calc(50% - 200px);
+    top: calc(20%);
+}
+
+@media (max-width: 768px){
+    .infoModal{
+        left: calc(50% - 120.5px);
+    }
 }
 
 @keyframes dashCalib {
